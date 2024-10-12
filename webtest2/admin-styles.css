@@ -323,6 +323,28 @@ footer {
     font-weight: bold;
     margin-bottom: 5px;
 }
+textarea#product-description, 
+input[type="text"], 
+input[type="number"] {
+    padding-left: 10px; 
+    padding-right: 10px; 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    border: 1px solid #ccc; 
+    font-size: 16px; 
+    box-sizing: border-box; 
+    width: 100%; 
+
+}
+
+/* Styling specifically for the notes textarea */
+textarea#product-description {
+    height: 200px; 
+    resize: vertical; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+}
+
 textarea#notes, 
 input[type="text"], 
 input[type="number"] {
