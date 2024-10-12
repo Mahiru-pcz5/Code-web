@@ -82,7 +82,9 @@ header {
 }
 
 .search-bar button {
-  width: 10%;
+  width: 11%;
+  height: 100%;
+  border: none;
   background-color: #d10024;
   color: #fff;
   cursor: pointer;
@@ -170,7 +172,7 @@ main .container {
 }
 
 .product-grid {
-  width: 75%;
+  width: 100%;
 }
 
 .product-row {
@@ -343,8 +345,10 @@ footer {
   .search-bar select,
   .search-bar input,
   .search-bar button {
-    width: 100%;
-    margin-bottom: 10px;
+    width: 10%;
+    background-color: #d10024;
+    color: #fff;
+    cursor: pointer;
   }
 }
 /* Product Details Styles */
@@ -532,5 +536,21 @@ footer {
 
   .product-card {
     margin-bottom: 20px;
+  }
+}
+.search-results-container {
+  width: 75%;
+}
+
+.search-results-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2b2d42;
+}
+
+@media (max-width: 768px) {
+  .search-results-container {
+    width: 100%;
   }
 }
