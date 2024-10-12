@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Mahiru Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +021-95-51-84</span>
+                    <span><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a7f777b73765a7f777b737634797577">[email&#160;protected]</a></span>
+                    <span><i class="fas fa-map-marker-alt"></i> 1734 Stonecoal Road</span>
+                </div>
+                <div class="user-actions">
+                    <span>USD</span>
+                    <a href="index.html">Hi Mahiru-pcz5</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1><a href="index_account.html">MAHIRU<span>.</span></a></h1>
+                </div>
+                <div class="search-bar">
+                    <select>
+                        <option>All Categories</option>
+                    </select>
+                    <input type="text" placeholder="Search here">
+                    <button>Search</button>
+                </div>
+                <div class="user-menu">
+                    <a href="index.html" class="wishlist"><i class="fas fa-bell"></i> Your Wishlist <span>2</span></a>
+                    <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Hot Deals</a></li>
+                    <li><a href="index.html">Categories</a></li>
+                    <li><a href="index.html">Laptops</a></li>
+                    <li><a href="index.html">Smartphones</a></li>
+                    <li><a href="index.html">Cameras</a></li>
+                    <li><a href="index.html">Accessories</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="cart-container">
+                <div class="cart-items">
+                    <table class="cart-table">
+                        <h1 class="cart-title">Your Shopping Cart</h1>
+                        <thead>
+                            <tr>
+                                <th>Products</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="./img/Emilia.jpeg" alt="Product 1" class="cart-item-image">
+                                </td>
+                                <td>
+                                    <h3>Product 1</h3>
+                                    <p>Category: Electronics</p>
+                                </td>
+                                <td>$99.99</td>
+                                <td>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn minus">-</button>
+                                        <input type="text" value="1" class="quantity-input">
+                                        <button class="quantity-btn plus">+</button>
+                                    </div>
+                                </td>
+                                <td>$99.99</td>
+                                <td>
+                                    <button class="remove-item"><i class="fas fa-times fa-2x"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="./img/Firefly.webp" alt="Product 2" class="cart-item-image">
+                                </td>
+                                <td>
+                                    <h3>Product 2</h3>
+                                    <p>Category: Clothing</p>
+                                </td>
+                                <td>$49.99</td>
+                                <td>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn minus">-</button>
+                                        <input type="text" value="2" class="quantity-input">
+                                        <button class="quantity-btn plus">+</button>
+                                    </div>
+                                </td>
+                                <td>$99.98</td>
+                                <td>
+                                    <button class="remove-item"><i class="fas fa-times fa-2x"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="./img/Ayaka.jpg" alt="Product 3" class="cart-item-image">
+                                </td>
+                                <td>
+                                    <h3>Product 3</h3>
+                                    <p>Category: Home & Garden</p>
+                                </td>
+                                <td>$29.99</td>
+                                <td>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn minus">-</button>
+                                        <input type="text" value="1" class="quantity-input">
+                                        <button class="quantity-btn plus">+</button>
+                                    </div>
+                                </td>
+                                <td>$29.99</td>
+                                <td>
+                                    <button class="remove-item"><i class="fas fa-times fa-2x"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cart-summary">
+                    <h2>Cart Total</h2>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>$229.96</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span>$10.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>$239.96</span>
+                    </div>
+                    <button class="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
