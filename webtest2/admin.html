@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mahiru Shop</title>
+    <link rel="stylesheet" href="./css/admin-styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container">
+                <h1 class="logo">MAHIRU<span>.</span> ADMIN</h1>
+                <nav>
+                    <ul>
+                        <li><a href="./admin.html">Dashboard</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#orders">Orders</a></li>
+                        <li><a href="#customers">Customers</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="admin-panel">
+                    <div class="admin-sidebar">
+                        <h2>Quick Actions</h2>
+                        <ul>
+                            <li><a href="./add-product.html">Add New Product</a></li>
+                            <li><a href="./manage-inventory.html">Manage Inventory</a></li>
+                            <li><a href="#view-orders">View Recent Orders</a></li>
+                            <li><a href="#analytics">Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="admin-content">
+                        <h1>Dashboard Overview</h1>
+                        <div class="dashboard-stats">
+                            <div class="stat-card">
+                                <h3>Total Products</h3>
+                                <p class="stat-number">1,234</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Total Orders</h3>
+                                <p class="stat-number">567</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Total Customers</h3>
+                                <p class="stat-number">890</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Revenue</h3>
+                                <p class="stat-number">$12,345</p>
+                            </div>
+                        </div>
+
+                        <h2>Recent Orders</h2>
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#12345</td>
+                                    <td>John Doe</td>
+                                    <td>2024-03-15</td>
+                                    <td>$99.99</td>
+                                    <td>Processing</td>
+                                    <td><button class="action-btn">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#12346</td>
+                                    <td>Jane Smith</td>
+                                    <td>2024-03-14</td>
+                                    <td>$149.99</td>
+                                    <td>Shipped</td>
+                                    <td><button class="action-btn">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#12347</td>
+                                    <td>Bob Johnson</td>
+                                    <td>2024-03-13</td>
+                                    <td>$79.99</td>
+                                    <td>Delivered</td>
+                                    <td><button class="action-btn">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2>Top Selling Products</h2>
+                        <div class="product-grid">
+                            <div class="product-card">
+                                <img src="./img/SAM.jpg" alt="Gundam Model">
+                                <h3>Gundam Model XYZ</h3>
+                                <p class="price">$59.99</p>
+                                <p class="sales">Sales: 100</p>
+                                <button class="action-btn">Edit</button>
+                            </div>
+                            <div class="product-card">
+                                <img src="./img/SAM.jpg" alt="Gundam Model ABC">
+                                <h3>Gundam Model ABC</h3>
+                                <p class="price">$54.99</p>
+                                <p class="sales">Sales: 85</p>
+                                <button class="action-btn">Edit</button>
+                            </div>
+                            <div class="product-card">
+                                <img src="./img/SAM.jpg" alt="Gundam Model 123">
+                                <h3>Gundam Model 123</h3>
+                                <p class="price">$64.99</p>
+                                <p class="sales">Sales: 75</p>
+                                <button class="action-btn">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
