@@ -30,7 +30,9 @@
       <div class="main-header">
         <div class="container">
           <div class="logo">
-            <a href="index.html"><h1>MAHIRU<span>.</span></h1></a>
+            <a href="index.html"
+              ><h1>MAHIRU<span>.</span></h1></a
+            >
           </div>
           <div class="search-bar">
             <select>
@@ -79,9 +81,29 @@
           </ul>
         </aside>
         <div class="search-results-container">
-          <h2 class="search-results-title">Search Results:</h2>
+          <!-- Search Filters Section -->
+          <div class="search-filters">
+            <form id="advanced-search">
+              <input
+                type="text"
+                placeholder="Search by product name"
+                name="product_name"
+              />
+              <select name="category">
+                <option value="">All Categories</option>
+                <!-- Add more category options here -->
+              </select>
+              <input type="number" placeholder="Min Price" name="min_price" />
+              <input type="number" placeholder="Max Price" name="max_price" />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <h2 class="search-results-title" style="margin-top: 10px">
+            Search Results:
+          </h2>
+
           <div class="product-grid">
-            <!-- Thay đổi từ .container thành .product-grid -->
             <div class="product-details">
               <div class="product-image">
                 <img
@@ -120,7 +142,6 @@
             </div>
           </div>
 
-          <!-- Đặt phần Related Products ở đây -->
           <h2 class="related-products-title">Related Products</h2>
           <div class="product-row">
             <div class="product-card">
@@ -141,6 +162,17 @@
               <p class="price">$39.99</p>
               <button class="add-to-cart">Add to Cart</button>
             </div>
+          </div>
+
+          <!-- Pagination Section -->
+          <div class="pagination">
+            <a href="index.html">&laquo;</a>
+            <a href="index.html" class="active">1</a>
+            <a href="index.html">2</a>
+            <a href="index.html">3</a>
+            <a href="index.html">4</a>
+            <a href="index.html">5</a>
+            <a href="index.html">&raquo;</a>
           </div>
         </div>
       </div>
