@@ -1,4 +1,4 @@
-# Web bán hàng(Nhóm 69)
+# Web bán Figure(Nhóm 69)
 Đề tài: 
 -Lớp DCT123C1
 -Phạm Phú Cường 3123411046
