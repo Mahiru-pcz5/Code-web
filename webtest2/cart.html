@@ -60,9 +60,8 @@
         <div class="container">
             <div class="cart-container">
                 <div class="cart-items">
-                    <form action="/update-cart" method="post">
-                        <table class="cart-table">
-                            <h1 class="page-title">Your Shopping Cart</h1>
+                    <table class="cart-table">
+                        <h1 class="page-title">Your Shopping Cart</h1>
                             <thead>
                                 <tr>
                                     <th>Product</th>
@@ -83,11 +82,11 @@
                                     </td>
                                     <td>$99.99</td>
                                     <td>
-                                        <input type="number" name="quantity_1" value="1" min="1" max="10">
+                                        <input type="number" name="quantity_1" value="1" min="1" max="10"readonly>
                                     </td>
                                     <td>$99.99</td>
                                     <td>
-                                        <button type="submit" name="remove_1" class="remove-btn">Remove</button>
+                                        <a href="cart.html"><button type="submit" name="remove_1" class="remove-btn">Remove</button></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -100,11 +99,11 @@
                                     </td>
                                     <td>$149.99</td>
                                     <td>
-                                        <input type="number" name="quantity_2" value="2" min="1" max="10">
+                                        <input type="number" name="quantity_2" value="2" min="1" max="10"readonly>
                                     </td>
                                     <td>$299.98</td>
                                     <td>
-                                        <button type="submit" name="remove_2" class="remove-btn">Remove</button>
+                                        <a href="cart.html"><button type="submit" name="remove_2" class="remove-btn">Remove</button></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -117,16 +116,16 @@
                                     </td>
                                     <td>$79.99</td>
                                     <td>
-                                        <input type="number" name="quantity_3" value="1" min="1" max="10">
+                                        <input type="number" name="quantity_3" value="1" min="1" max="10"readonly>
                                     </td>
                                     <td>$79.99</td>
                                     <td>
-                                        <button type="submit" name="remove_3" class="remove-btn">Remove</button>
+                                        <a href="cart.html"><button type="submit" name="remove_3" class="remove-btn">Remove</button></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="submit" name="update_cart" class="update-cart-btn">Update Cart</button>
+                        <a href="cart.html"><button type="update" value="Update" class="update-cart-btn">Update Cart</button></a>
                     </form>
                 </div>
                 <div class="cart-summary">
