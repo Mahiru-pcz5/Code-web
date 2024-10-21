@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mahiru Shop</title>
+    <link rel="stylesheet" href="./css/search.css" />
+    <script
+      src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <div class="top-bar">
+        <div class="container">
+          <div class="contact-info">
+            <span><i class="fas fa-phone"></i> +021-95-51-84</span>
+            <span><i class="fas fa-envelope"></i> email@email.com ></span>
+            <span
+              ><i class="fas fa-map-marker-alt"></i> 1734 Stonecoal Road</span
+            >
+          </div>
+          <div class="user-actions">
+            <span>USD</span>
+            <a href="index.html">Hi Mahiru-pcz5</a>
+          </div>
+        </div>
+      </div>
+      <div class="main-header">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html"
+              ><h1>MAHIRU<span>.</span></h1></a
+            >
+          </div>
+          <div class="search-bar">
+            <select>
+              <option>All Categories</option>
+              <!-- Add more categories here -->
+            </select>
+            <input type="text" placeholder="Search here" />
+            <button>Search</button>
+          </div>
+          <div class="user-menu">
+            <a href="index.html" class="wishlist"
+              ><i class="fas fa-heart"></i> Your Wishlist <span>2</span></a
+            >
+            <a href="index.html" class="cart"
+              ><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Hot Deals</a></li>
+            <li><a href="index.html">Categories</a></li>
+            <li><a href="index.html">Laptops</a></li>
+            <li><a href="index.html">Smartphones</a></li>
+            <li><a href="index.html">Cameras</a></li>
+            <li><a href="index.html">Accessories</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <aside class="sidebar">
+          <h3>Product Categories</h3>
+          <ul>
+            <li><a href="index.html">Luxury Apartments</a></li>
+            <li><a href="index.html">Condominiums</a></li>
+            <li><a href="index.html">Upcoming Projects</a></li>
+            <li><a href="index.html">Office Spaces</a></li>
+            <li><a href="index.html">High-rise Residences</a></li>
+            <li><a href="index.html">Urban Housing</a></li>
+          </ul>
+        </aside>
+        <div class="search-results-container">
+          <!-- Search Filters Section -->
+          <div class="search-filters">
+            <form id="advanced-search">
+              <input
+                type="text"
+                placeholder="Search by product name"
+                name="product_name"
+              />
+              <select name="category">
+                <option value="">All Categories</option>
+                <!-- Add more category options here -->
+              </select>
+              <input type="number" placeholder="Min Price" name="min_price" />
+              <input type="number" placeholder="Max Price" name="max_price" />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <h2 class="search-results-title" style="margin-top: 10px">
+            Search Results:
+          </h2>
+
+          <div class="product-grid">
+            <div class="product-details">
+              <div class="product-image">
+                <img
+                  src="https://royaltoys.com.vn/wp-content/uploads/2023/08/z4606217228722_2b275cb8e0bb9564f9dbda89de1359b4.jpg"
+                  alt="Gundam Model"
+                />
+              </div>
+              <div class="product-info">
+                <h1>Gundam Model XYZ</h1>
+                <p class="category">Category: Model Kits</p>
+                <p class="price">$59.99</p>
+                <div class="rating">
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star">★</span>
+                  <span class="star-empty">☆</span>
+                </div>
+                <p class="description">
+                  This high-quality Gundam model kit features intricate details
+                  and poseable joints. Perfect for collectors and enthusiasts
+                  alike.
+                </p>
+                <div class="quantity-selector">
+                  <button class="quantity-btn minus">-</button>
+                  <input
+                    type="number"
+                    value="1"
+                    min="1"
+                    class="quantity-input"
+                  />
+                  <button class="quantity-btn plus">+</button>
+                </div>
+                <button class="add-to-cart">Add to cart</button>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="related-products-title">Related Products</h2>
+          <div class="product-row">
+            <div class="product-card">
+              <img src="placeholder.jpg" alt="Related Product 1" />
+              <h3>Related Product 1</h3>
+              <p class="price">$49.99</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product-card">
+              <img src="placeholder.jpg" alt="Related Product 2" />
+              <h3>Related Product 2</h3>
+              <p class="price">$54.99</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product-card">
+              <img src="placeholder.jpg" alt="Related Product 3" />
+              <h3>Related Product 3</h3>
+              <p class="price">$39.99</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Pagination Section -->
+          <div class="pagination">
+            <a href="index.html">&laquo;</a>
+            <a href="index.html" class="active">1</a>
+            <a href="index.html">2</a>
+            <a href="index.html">3</a>
+            <a href="index.html">4</a>
+            <a href="index.html">5</a>
+            <a href="index.html">&raquo;</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+      </div>
+    </footer>
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+  </body>
+</html>
