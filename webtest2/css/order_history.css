@@ -1,104 +1,164 @@
 .order-history {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    vertical-align: middle;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  vertical-align: middle;
 }
 
 .page-title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #2b2d42;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2b2d42;
 }
 
 .order-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .order-item {
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .order-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .order-header h2 {
-    font-size: 18px;
-    color: #2b2d42;
+  font-size: 18px;
+  color: #2b2d42;
 }
 
-.order-date, .order-status {
-    font-size: 14px;
-    color: #666;
+.order-date,
+.order-status {
+  font-size: 14px;
+  color: #666;
 }
 
 .order-details {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .product-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .product-image {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .product-info h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #2b2d42;
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #2b2d42;
 }
 
 .product-info p {
-    font-size: 14px;
-    color: #666;
-    margin: 0;
+  font-size: 14px;
+  color: #666;
+  margin: 0;
 }
 
 .order-total {
-    margin-top: 15px;
-    text-align: right;
-    font-weight: bold;
-    font-size: 18px;
-    color: #d10024;
+  margin-top: 15px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+  color: #d10024;
 }
 
 @media (max-width: 768px) {
-    .order-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
+  .order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
 
-    .product-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .product-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .product-image {
-        width: 100%;
-        height: auto;
-        max-height: 200px;
-    }
+  .product-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+}
+.search-bar {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar {
+  display: flex;
+  width: 100%;
+  max-width: 550px; /* Tăng chiều rộng tối đa một chút */
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar select,
+.search-bar input,
+.search-bar .search-button {
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-bar select {
+  width: 25%;
+  background-color: #f8f8f8;
+  color: #555;
+}
+
+.search-bar input {
+  width: 50%;
+  color: #333;
+}
+
+.search-bar .search-button {
+  width: 25%;
+  background-color: #d10024;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.search-bar .search-button:hover {
+  background-color: #a7001c;
 }
