@@ -4,29 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Mahiru Shop</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="checkout.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/checkout.css">
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div id="show-notification"></div>
+    <div class="notification">
+        Đơn hàng của bạn đã đặt thành công.
+        <a href="order_history.html">OK</a>
+    </div>
+
     <header>
         <div class="top-bar">
             <div class="container">
                 <div class="contact-info">
                     <span><i class="fas fa-phone"></i> +021-95-51-84</span>
-                    <span><i class="fas fa-envelope"></i> email@example.com</span>
+                    <span><i class="fas fa-envelope"></i> email@email.com</span>
                     <span><i class="fas fa-map-marker-alt"></i> 1734 Stonecoal Road</span>
                 </div>
                 <div class="user-actions">
                     <span>USD</span>
-                    <a href="index.html">Hi Mahiru-pcz5</a>
+                    <a href="index.html" class="login-link">Hi Mahiru-pcz5</a>
                 </div>
             </div>
         </div>
         <div class="main-header">
             <div class="container">
                 <div class="logo">
-                    <a href="index.html"><h1>MAHIRU<span>.</span></h1></a>
+                    <a href="index_account.html" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
                 <div class="search-bar">
                     <select>
@@ -36,8 +42,10 @@
                     <a href="search_account.html"><button>Search</button></a>
                 </div>
                 <div class="user-menu">
-                    <a href="index.html" class="wishlist"><i class="fas fa-heart"></i> Your Wishlist <span>2</span></a>
-                    <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a>
+                    <a href="index.html" class="wishlist"><i class="fas fa-bell"></i> Notification</a>
+                    <a href="wishlist.html" class="wishlist"><i class="fas fa-heart"></i> Wishlist</a>
+                    <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart</a>
+                    <a href="order_history.html" class="cart"><i class="fas fa-receipt"></i></a>
                 </div>
             </div>
         </div>
@@ -58,7 +66,7 @@
 
     <main>
         <div class="container">
-            <form action="/place-order" method="post" class="checkout-form">
+            <form action="#show-notification" method="get" class="checkout-form">
                 <h1 class="page-title">Checkout</h1>
                 <div class="checkout-container">
                     <div class="shipping-info">
@@ -127,7 +135,7 @@
     </main>
 
     <footer>
-        <div  class="container">
+        <div class="container">
             <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
         </div>
     </footer>
