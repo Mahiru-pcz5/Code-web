@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - Mahiru Shop</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/cart.css">
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -19,14 +19,14 @@
                 </div>
                 <div class="user-actions">
                     <span>USD</span>
-                    <a href="index.html">Hi Mahiru-pcz5</a>
+                    <a href="index.html" class="login-link">Hi Mahiru-pcz5</a>
                 </div>
             </div>
         </div>
         <div class="main-header">
             <div class="container">
                 <div class="logo">
-                    <a href="index.html"><h1>MAHIRU<span>.</span></h1></a>
+                    <a href="index_account.html" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
                 <div class="search-bar">
                     <select>
@@ -36,8 +36,11 @@
                     <a href="search_account.html"><button>Search</button></a>
                 </div>
                 <div class="user-menu">
-                    <a href="index.html" class="wishlist"><i class="fas fa-heart"></i> Your Wishlist <span>2</span></a>
-                    <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a>
+                    <div class="user-menu">
+                        <a href="index_account.html" class="wishlist"><i class="fas fa-bell"></i>Notification</a>
+                        <a href="wishlist.html" class="wishlist"><i class="fas fa-heart"></i>Wishlist</a>
+                        <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i>Your Cart</a>
+                        <a href="order_history.html" class="cart"><i class="fas fa-receipt"></i>Order History</a>
                 </div>
             </div>
         </div>
@@ -86,7 +89,7 @@
                                     </td>
                                     <td>$99.99</td>
                                     <td>
-                                        <a href="cart.html"><button type="submit" name="remove_1" class="remove-btn">Remove</button></a>
+                                        <a href="#"><button type="submit" name="remove_1" class="remove-btn">Remove</button></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -103,7 +106,7 @@
                                     </td>
                                     <td>$299.98</td>
                                     <td>
-                                        <a href="cart.html"><button type="submit" name="remove_2" class="remove-btn">Remove</button></a>
+                                        <a href="#"><button type="submit" name="remove_2" class="remove-btn">Remove</button></a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -120,12 +123,12 @@
                                     </td>
                                     <td>$79.99</td>
                                     <td>
-                                        <a href="cart.html"><button type="submit" name="remove_3" class="remove-btn">Remove</button></a>
+                                        <a href="#"><button type="submit" name="remove_3" class="remove-btn">Remove</button></a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="cart.html"><button type="update" value="Update" class="update-cart-btn">Update Cart</button></a>
+                        <a href="#"><button type="update" value="Update" class="update-cart-btn">Update Cart</button></a>
                     </form>
                 </div>
                 <div class="cart-summary">
