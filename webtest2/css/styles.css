@@ -60,28 +60,52 @@ header {
 }
 
 .search-bar {
-    display: flex;
-    width: 50%;
+  display: flex;
+  width: 100%;
+  max-width: 550px; /* Tăng chiều rộng tối đa một chút */
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar select, .search-bar input, .search-bar button {
-    padding: 10px;
-    border: none;
+.search-bar select,
+.search-bar input,
+.search-bar .search-button {
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  outline: none;
 }
 
 .search-bar select {
-    width: 30%;
+  width: 25%;
+  background-color: #f8f8f8;
+  color: #555;
 }
 
 .search-bar input {
-    width: 60%;
+  width: 50%;
+  color: #333;
 }
 
-.search-bar button {
-    width: 100%;
-    background-color: #d10024;
-    color: #fff;
-    cursor: pointer;
+.search-bar .search-button {
+  width: 25%;
+  background-color: #d10024;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.search-bar .search-button:hover {
+  background-color: #a7001c;
 }
 
 .user-menu a {
