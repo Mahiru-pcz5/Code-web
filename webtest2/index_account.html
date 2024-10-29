@@ -86,15 +86,78 @@
     <main>
       <div class="container">
         <aside class="sidebar">
-          <h3>Product Categories</h3>
-          <ul>
-            <li><a href="index.html">Gundam</a></li>
-            <li><a href="index.html">Kamen Rider</a></li>
-            <li><a href="index.html">Game </a></li>
-            <li><a href="index.html">Anime </a></li>
-            <li><a href="index.html">Manga</a></li>
-            <li><a href="index.html">Novel</a></li>
-          </ul>
+          <h3>Filters</h3>
+          <div class="filter-section">
+            <h4>Product Type</h4>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Gundam" />
+                  Gundam
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Kamen Rider" />
+                  Kamen Rider
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Game" /> Game
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Anime" /> Anime
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Manga" /> Manga
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Novel" /> Novel
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="filter-section">
+            <h4>Price Range</h4>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="0-20" /> Under $20
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="20-50" /> $20 - $50
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="50-100" /> $50 -
+                  $100
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="100+" /> Over $100
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="filter-apply">
+            <button
+              class="apply-button"
+              onclick="window.location.href='search_account.html'"
+            >
+              Apply
+            </button>
+          </div>
         </aside>
         <section class="product-grid">
           <!-- Row 1 -->
