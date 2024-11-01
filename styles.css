@@ -46,10 +46,12 @@ header {
 .contact-info span,
 .user-actions span,
 .user-actions a {
-  margin-right: 15px;
+  margin-right: 0px;
   font-size: 14px;
 }
-
+.name {
+  margin-left: 5px;
+}
 .main-header {
   padding: 20px 0;
 }
