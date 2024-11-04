@@ -229,7 +229,7 @@ main .container {
 }
 
 .filter-section input[type="checkbox"]:checked::before {
-  content: '\2714';
+  content: "\2714";
   font-size: 14px;
   color: white;
   position: absolute;
@@ -373,7 +373,9 @@ footer {
   display: flex;
   align-items: center;
 }
-
+.user-menu .wishlist:hover {
+  color: #d10024;
+}
 .user-menu a {
   color: #fff;
   margin-left: 15px;
