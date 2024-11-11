@@ -169,7 +169,7 @@ main .container {
 /* Sidebar Styles */
 .sidebar {
   width: 25%;
-  height: 50%;
+  height: 100%;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
