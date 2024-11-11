@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product - Mahiru Shop</title>
+    <link rel="stylesheet" href="./css/admin-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container">
+                <h1 class="logo">MAHIRU<span>.</span> ADMIN</h1>
+                <nav>
+                    <ul>
+                        <li><a href="./admin.html">Dashboard</a></li>
+                        <li><a href="./manage-inventory.html">Products</a></li>
+                        <li><a href="#view-orders">Orders</a></li>
+                        <li><a href="#customers">Customers</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    <div class="user-icon">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <span class="admin-name">Admin: Hatsu</span>
+                    <a href="./loginad.html" class="logout">Log out</a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="admin-content">
+                    <h1>Edit Product</h1>
+                    
+                    <section id="edit-product"> 
+                        <h2>Edit Gundam Model XYZ</h2>
+                        <form class="product-form">
+                            <div class="form-group">
+                                <label for="product-name">Product Name</label>
+                                <input type="text" id="product-name" name="product-name" value="Gundam Model XYZ" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-description">Description</label>
+                                <textarea id="product-description" name="product-description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-price">Price</label>
+                                <input type="number" id="product-price" name="product-price" step="0.01" value="59.99" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-category">Category</label>
+                                <select id="product-category" name="product-category" required style="padding-top: 15px; padding-bottom: 15px">
+                                    <option value="">Select a category</option>
+                                    <option value="gundam" selected>Gundam Models</option>
+                                    <option value="accessories">Accessories</option>
+                                    <option value="tools">Tools</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-image">Product Image</label>
+                                <input type="file" id="product-image" name="product-image" accept="image/*">
+                                <p class="help-text">Leave blank to keep the current image</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-inventory">Inventory</label>
+                                <input type="number" id="product-inventory" name="product-inventory" value="50" required>
+                            </div>
+                            <button type="submit" class="action-btn">Update Product</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

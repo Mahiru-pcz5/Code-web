@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Mahiru Shop</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +021-95-51-84</span>
+                    <span><i class="fas fa-envelope"></i> email@example.com</span>
+                    <span><i class="fas fa-map-marker-alt"></i> 1734 Stonecoal Road</span>
+                </div>
+                <div class="user-actions">
+                    <span>USD</span>
+                    <a href="index.html">Hi Mahiru-pcz5</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html"><h1>MAHIRU<span>.</span></h1></a>
+                </div>
+                <div class="search-bar">
+                    <select>
+                        <option>All Categories</option>
+                    </select>
+                    <input type="text" placeholder="Search here">
+                    <a href="search_account.html"><button>Search</button></a>
+                </div>
+                <div class="user-menu">
+                    <a href="index.html" class="wishlist"><i class="fas fa-heart"></i> Your Wishlist <span>2</span></a>
+                    <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Hot Deals</a></li>
+                    <li><a href="index.html">Categories</a></li>
+                    <li><a href="index.html">Laptops</a></li>
+                    <li><a href="index.html">Smartphones</a></li>
+                    <li><a href="index.html">Cameras</a></li>
+                    <li><a href="index.html">Accessories</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="cart-container">
+                <div class="cart-items">
+                    <form action="/update-cart" method="post">
+                        <table class="cart-table">
+                            <h1 class="page-title">Your Shopping Cart</h1>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="./img/Emilia.jpeg" alt="Product 1" class="cart-item-image">
+                                        <div class="product-info">
+                                            <h3>Product 1</h3>
+                                            <p>Product description goes here</p>
+                                        </div>
+                                    </td>
+                                    <td>$99.99</td>
+                                    <td>
+                                        <input type="number" name="quantity_1" value="1" min="1" max="10">
+                                    </td>
+                                    <td>$99.99</td>
+                                    <td>
+                                        <button type="submit" name="remove_1" class="remove-btn">Remove</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="./img/Firefly.webp" alt="Product 2" class="cart-item-image">
+                                        <div class="product-info">
+                                            <h3>Product 2</h3>
+                                            <p>Product description goes here</p>
+                                        </div>
+                                    </td>
+                                    <td>$149.99</td>
+                                    <td>
+                                        <input type="number" name="quantity_2" value="2" min="1" max="10">
+                                    </td>
+                                    <td>$299.98</td>
+                                    <td>
+                                        <button type="submit" name="remove_2" class="remove-btn">Remove</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="./img/Ayaka.jpg" alt="Product 3" class="cart-item-image">
+                                        <div class="product-info">
+                                            <h3>Product 3</h3>
+                                            <p>Product description goes here</p>
+                                        </div>
+                                    </td>
+                                    <td>$79.99</td>
+                                    <td>
+                                        <input type="number" name="quantity_3" value="1" min="1" max="10">
+                                    </td>
+                                    <td>$79.99</td>
+                                    <td>
+                                        <button type="submit" name="remove_3" class="remove-btn">Remove</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" name="update_cart" class="update-cart-btn">Update Cart</button>
+                    </form>
+                </div>
+                <div class="cart-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>$479.96</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span>$10.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>$489.96</span>
+                    </div>
+                    <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
