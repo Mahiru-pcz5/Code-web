@@ -1,66 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail - Mahiru Shop</title>
-    <link rel="stylesheet" href="./css/product_details.css">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - Mahiru Shop</title>
+    <link rel="stylesheet" href="./css/product_details.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
     <header>
-        <div class="top-bar">
-            <div class="container">
-                <div class="contact-info">
-                    <span><i class="fas fa-phone"></i> +021-95-51-84</span>
-                    <span><i class="fas fa-envelope"></i> email@email.com</span>
-                    <span><i class="fas fa-map-marker-alt"></i> 1734 Stonecoal Road</span>
-                </div>
-                <div class="user-actions">
-                    <span>USD</span>
-                    <a href="login.html">Login</a>
-                </div>
+      <div class="top-bar">
+        <div class="container">
+          <div class="contact-info">
+            <span><i class="fas fa-phone"></i> 012345678</span>
+            <span><i class="fas fa-envelope"></i> info@mahirushop.com</span>
+            <span><i class="fas fa-map-marker-alt"></i>1104 Wall Street</span>
+          </div>
+          <div class="user-actions">
+            <a class="login-link">
+                <i class="fas fa-user"></i>
+                <span class="name">Mahiru-pcz5</span>
+            </a>
+            <div class="login-dropdown">
+                <a href="home.html" class="login-option">Log out</a>
+                <a href="order_history.html" class="login-option">Order history</a>
             </div>
+          </div>
         </div>
-        <div class="main-header">
-            <div class="container">
-                <div class="logo">
-                    <h1>MAHIRU<span>.</span></h1>
-                </div>
-                <div class="search-bar">
-                    <select>
-                        <option>All Categories</option>
-                        <!-- Add more categories here -->
-                    </select>
-                    <input type="text" placeholder="Search here" />
-                    <button>Search</button>
-                </div>
-                <div class="user-menu">
-                    <a href="#" class="wishlist"><i class="fas fa-heart"></i> Your Wishlist <span>2</span></a>
-                    <a href="#" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a>
-                </div>
-            </div>
+      </div>
+      <div class="main-header">
+        <div class="container">
+          <div class="logo">
+            <a href="home_account.html" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
+          </div>
+          <div class="search-bar">
+            <select>
+              <option>All Categories</option>
+            </select>
+            <input type="text" placeholder="Search here" />
+            <a href="search_account.html" class="search-button">Search</a>
+          </div>
+          <div class="user-menu">
+            <a href="home_account.html" class="icon"><i class="fas fa-bell"></i></a>
+            <a href="wishlist.html" class="icon"><i class="fas fa-heart"></i></a>
+            <a href="cart.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
+          </div>
         </div>
-        <nav>
-            <div class="container">
-                <ul>
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="#">Hot Deals</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Gundam</a></li>
-                    <li><a href="#">Kamen Rider</a></li>
-                    <li><a href="#">Game Figure</a></li>
-                    <li><a href="#">Anime Figure</a></li>
-                </ul>
-            </div>
-        </nav>
+      </div>
+      <nav>
+        <div class="container">
+          <ul>
+            <li><a href="home_account.html">Home</a></li>
+            <li><a href="home_account.html">Gundam</a></li>
+            <li><a href="home_account.html">Kamen Rider</a></li>
+            <li><a href="home_account.html">Standee</a></li>
+            <li><a href="home_account.html">Keychain</a></li>
+            <li><a href="home_account.html">Plush</a></li>
+            <li><a href="home_account.html">Figure</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <div class="container">
+      <div class="container">
+        <aside class="sidebar">
+          <h3>Filters</h3>
+          <div class="filter-section">
+            <h4>Categories</h4>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Gundam" />
+                  Gundam
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Kamen Rider" />
+                  Kamen Rider
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Standee" /> Standee
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Keychain" /> Keychain
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Plush" /> Plush
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="category" value="Figure" /> Figure
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="filter-section">
+            <h4>Price Range</h4>
+            <ul>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="0-20" /> Under $20
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="20-50" /> $20 - $50
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="50-100" /> $50 - $100
+                </label>
+              </li>
+              <li>
+                <label>
+                  <input type="checkbox" name="price" value="100+" /> Over $100
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="filter-apply">
+            <button class="apply-button" onclick="window.location.href='search_account.html'">
+              Apply
+            </button>
+          </div>
+        </aside>
+        
+        <div class="product-content">
             <div class="product-details">
                 <div class="product-image">
-                    <img src="./img/Gundam.jpg" alt="Product Image">
+                    <img src="./img/Gundam.jpg" alt="Gundam Model XYZ">
                 </div>
                 <div class="product-info">
                     <h1>Gundam Model XYZ</h1>
@@ -84,7 +165,7 @@
                     <button class="add-to-wishlist"><i class="fas fa-heart"></i> Add to Wishlist</button>
                 </div>
             </div>
-
+        
             <div class="product-tabs">
                 <ul class="tab-nav">
                     <li class="active"><a href="#description">Description</a></li>
@@ -121,7 +202,7 @@
                     </div>
                 </div>
             </div>
-
+        
             <h2 class="related-products-title">Related Products</h2>
             <div class="product-row">
                 <div class="product-card">
@@ -144,12 +225,14 @@
                 </div>
             </div>
         </div>
+      </div>
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy;  Mahiru Shop. We are pleased to serve you.</p>
-        </div>
+      <div class="container">
+        <p>&copy; Mahiru Shop. We are pleased to serve you.</p>
+      </div>
     </footer>
-</body>
+    <script src="./js/popup.js"></script>
+  </body>
 </html>
