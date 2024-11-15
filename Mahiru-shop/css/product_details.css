@@ -485,33 +485,6 @@ main .container {
     padding: 8px 15px;
     width: 100%;
 }
-/* Pagination Styles */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-  }
-  
-  .pagination a {
-    color: #2b2d42;
-    padding: 8px 16px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    margin: 0 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .pagination a:hover {
-    background-color: #f4f4f4;
-    color: #d10024;
-  }
-  
-  .pagination a.active {
-    background-color: #d10024;
-    color: white;
-    border: 1px solid #d10024;
-  }
 /* Footer Styles */
 footer {
     background-color: #15161d;
