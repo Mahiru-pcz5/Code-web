@@ -258,7 +258,43 @@ main .container {
 .apply-button:hover {
   background-color: #ff1a3e;
 }
+/* Thêm vào cuối file styles.css */
 
+/* Product Categories Styles */
+.product-categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.category-item {
+  padding: 8px 16px;
+  background-color: #f4f4f4;
+  color: #2b2d42;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-item:hover {
+  background-color: #d10024;
+  color: #fff;
+}
+
+/* Responsive design for categories */
+@media (max-width: 768px) {
+  .product-categories {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  
+  .category-item {
+    white-space: nowrap;
+  }
+}
 /* Product Grid Styles */
 .product-grid {
   width: 75%;
