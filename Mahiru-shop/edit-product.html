@@ -15,9 +15,9 @@
                 <nav>
                     <ul>
                         <li><a href="./admin.html">Dashboard</a></li>
-                        <li><a href="./manage-inventory.html">Products</a></li>
+                        <li><a href="./user-management.html">User</a></li>
                         <li><a href="#view-orders">Orders</a></li>
-                        <li><a href="#customers">Customers</a></li>
+                        <li><a href="./add-product.html">Product</a></li>
                     </ul>
                 </nav>
                 <div class="user-info">
@@ -32,30 +32,33 @@
         <main>
             <div class="container">
                 <div class="admin-content">
-                    <h1>Edit Product</h1>
-                    
-                    <section id="edit-product"> 
-                        <h2>Edit Gundam Model XYZ</h2>
+                    <section id="edit-product" style="
+                    margin-top: 0px;
+                    border-top-width: 0px; "> 
+                        <h2>Edit Product</h2>
                         <form class="product-form">
                             <div class="form-group">
                                 <label for="product-name">Product Name</label>
-                                <input type="text" id="product-name" name="product-name" value="Gundam Model XYZ" required>
+                                <input type="text" id="product-name" name="product-name" value="Gundam Model XYZ" >
                             </div>
                             <div class="form-group">
                                 <label for="product-description">Description</label>
-                                <textarea id="product-description" name="product-description" required></textarea>
+                                <textarea id="product-description" name="product-description" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="product-price">Price</label>
-                                <input type="number" id="product-price" name="product-price" step="0.01" value="59.99" required>
+                                <input type="number" id="product-price" name="product-price" step="0.01" value="59.99" >
                             </div>
                             <div class="form-group">
                                 <label for="product-category">Category</label>
-                                <select id="product-category" name="product-category" required style="padding-top: 15px; padding-bottom: 15px">
+                                <select id="product-category" name="product-category"  style="padding-top: 15px; padding-bottom: 15px">
                                     <option value="">Select a category</option>
                                     <option value="gundam" selected>Gundam Models</option>
-                                    <option value="accessories">Accessories</option>
-                                    <option value="tools">Tools</option>
+                                    <option value="kamen rider">Kamen Rider</option>
+                                    <option value="Standee">Standee</option>
+                                    <option value="Keychain">Keychaim</option>
+                                    <option value="Plush">Plush</option>
+                                    <option value="Figure">Figure</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -65,9 +68,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="product-inventory">Inventory</label>
-                                <input type="number" id="product-inventory" name="product-inventory" value="50" required>
+                                <input type="number" id="product-inventory" name="product-inventory" value="50" >
                             </div>
-                            <button type="submit" class="action-btn">Update Product</button>
+                            <button type="submit" onclick="myFunction()" class="action-btn" style="background-color: green; color: white;">update</button>
+                            <script>
+                                function myFunction() {
+                          alert("Account login successful");
+                        }
+                             </script>
+                              <button type="submit" onclick="del()" class="action-btn" style="background-color: red; color: white;">Delete</button>
+                            <script>
+                              function del() {
+                                const confirmation = confirm("Do you want to delete");
+                                if (confirmation) {
+                                  alert("Deleted Succesfuly");
+                                } else {
+                                  alert("Deleted cancel");
+                                }
+                              }
+                            </script>
                         </form>
                     </section>
                 </div>
