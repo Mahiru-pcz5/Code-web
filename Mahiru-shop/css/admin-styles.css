@@ -323,47 +323,6 @@ footer {
     border-radius: 4px;
 }
 
-.inventory-table,
-.low-stock-table,
-.inventory-history-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.inventory-table th,
-.inventory-table td,
-.low-stock-table th,
-.low-stock-table td,
-.inventory-history-table th,
-.inventory-history-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-
-.inventory-table th,
-.low-stock-table th,
-.inventory-history-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-.inventory-search,
-.inventory-history-search {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.inventory-search input,
-.inventory-history-search input,
-.inventory-search button,
-.inventory-history-search button {
-    padding: 8px;
-    font-size: 14px;
-}
 
 .action-btn {
     background-color: #4CAF50;
@@ -379,8 +338,6 @@ footer {
     border-radius: 4px;
 }
 #edit-product {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
     padding: 20px;
     margin-top: 30px;
     background-color: #f9f9f9;
@@ -499,6 +456,7 @@ textarea#notes {
 
 .action-btn:hover {
     background-color: #45a049; 
+}
 
 /* Table styling for inventory */
 .inventory-table,
@@ -506,23 +464,6 @@ textarea#notes {
 .inventory-history-table {
     width: 100%;
     border-collapse: collapse;
-}
-
-.inventory-table th,
-.low-stock-table th,
-.inventory-history-table th,
-.inventory-table td,
-.low-stock-table td,
-.inventory-history-table td {
-    border: 10px solid #ddd;
-    padding: 8px;
-}
-
-.inventory-table th,
-.low-stock-table th,
-.inventory-history-table th {
-    background-color: #f2f2f2;
-    text-align: left;
 }
 
 .bordered-section {
@@ -535,53 +476,3 @@ textarea#notes {
     text-align: center;
 }
 
-.section-title {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-/* General form styling */
-.inventory-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.inventory-form .form-group {
-    margin-bottom: 15px;
-}
-
-.inventory-form .form-group label {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.inventory-form .form-group input,
-.inventory-form .form-group select,
-.inventory-form .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.inventory-form .action-btn {
-    width: auto;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.inventory-form .action-btn:hover {
-    background-color: #45a049;
-}
-
-.inventory-table,
-.low-stock-table,
-.inventory-history-table,
-.reason-for-change-table {
-    width: 100%; /* Ensure all tables take up the full width of their container */
-    border-collapse: collapse; /* Remove gaps between table cells */
-}
