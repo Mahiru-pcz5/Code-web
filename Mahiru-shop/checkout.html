@@ -6,62 +6,75 @@
     <title>Checkout - Mahiru Shop</title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/checkout.css">
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
 </head>
 <body>
     <header>
-        <div class="top-bar">
-            <div class="container">
-                <div class="contact-info">
-                    <span><i class="fas fa-phone"></i> +021-95-51-84</span>
-                    <span><i class="fas fa-envelope"></i> email@example.com</span>
-                    <span><i class="fas fa-map-marker-alt"></i> 1734 Stonecoal Road</span>
-                </div>
-                <div class="user-actions">
-                    <span>USD</span>
-                    <a href="index.html">Hi Mahiru-pcz5</a>
-                </div>
+      <div class="top-bar">
+        <div class="container">
+          <div class="contact-info">
+            <span><i class="fas fa-phone"></i> 012345678</span>
+            <span><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a575b5253484f7a5d575b535614595557">[email&#160;protected]</a></span>
+            <span><i class="fas fa-map-marker-alt"></i>1104 Wall Street</span>
+          </div>
+          <div class="user-actions">
+            <a class="login-link">
+                <i class="fas fa-user"></i>
+                <span class="name">Mahiru-pcz5</span>
+            </a>
+            <div class="login-dropdown">
+                <a href="index.html" class="login-option">Log out</a>
+                <a href="order_history.html" class="login-option">Order history</a>
             </div>
+          </div>
         </div>
-        <div class="main-header">
-            <div class="container">
-                <div class="logo">
-                    <a href="index.html"><h1>MAHIRU<span>.</span></h1></a>
-                </div>
-                <div class="search-bar">
-                    <select>
-                        <option>All Categories</option>
-                    </select>
-                    <input type="text" placeholder="Search here">
-                    <a href="search_account.html"><button>Search</button></a>
-                </div>
-                <div class="user-menu">
-                    <a href="index.html" class="wishlist"><i class="fas fa-heart"></i> Your Wishlist <span>2</span></a>
-                    <a href="cart.html" class="cart"><i class="fas fa-shopping-cart"></i> Your Cart <span>3</span></a>
-                </div>
-            </div>
+      </div>
+      <div class="main-header">
+        <div class="container">
+          <div class="logo">
+            <a href="index_account.html" class="logo-link"
+              ><h1>MAHIRU<span>.</span></h1></a
+            >
+          </div>
+          <div class="search-bar">
+            <select>
+              <option>All Categories</option>
+              <!-- Add more categories here -->
+            </select>
+            <input type="text" placeholder="Search here" />
+            <a href="search_account.html" class="search-button">Search</a>
+          </div>
+          <div class="user-menu">
+            <a href="index_account.html" class="icon"><i class="fas fa-bell"></i></a>
+            <a href="wishlist.html" class="icon"><i class="fas fa-heart"></i></a>
+            <a href="cart.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
+          </div>
         </div>
-        <nav>
-            <div class="container">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Hot Deals</a></li>
-                    <li><a href="index.html">Categories</a></li>
-                    <li><a href="index.html">Laptops</a></li>
-                    <li><a href="index.html">Smartphones</a></li>
-                    <li><a href="index.html">Cameras</a></li>
-                    <li><a href="index.html">Accessories</a></li>
-                </ul>
-            </div>
-        </nav>
+      </div>
+      <nav>
+        <div class="container">
+          <ul>
+            <li><a href="index_account.html">Home</a></li>
+            <li><a href="index_account.html">Gundam</a></li>
+            <li><a href="index_account.html">Kamen Rider</a></li>
+            <li><a href="index_account.html">Standee</a></li>
+            <li><a href="index_account.html">Keychain</a></li>
+            <li><a href="index_account.html">Plush</a></li>
+            <li><a href="index_account.html">Figure</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
         <div class="container">
-            <form action="/place-order" method="post" class="checkout-form">
+            <form action="#show-notification" method="get" class="checkout-form">
+                <h1 class="page-title">Checkout</h1>
                 <div class="checkout-container">
                     <div class="shipping-info">
-                        <h1 class="page-title">Checkout</h1>
                         <h2>Shipping Information</h2>
                         <div class="address-selection">
                             <h3>Select Delivery Address</h3>
@@ -73,13 +86,13 @@
                         </div>
                         <div class="new-address-form">
                             <h3>Or Enter New Address</h3>
-                            <input type="text" name="full_name" placeholder="Full Name" required>
-                            <input type="text" name="street_address" placeholder="Street Address" required>
-                            <input type="text" name="city" placeholder="City" required>
-                            <input type="text" name="state" placeholder="State/Province" required>
-                            <input type="text" name="zip_code" placeholder="ZIP/Postal Code" required>
-                            <input type="text" name="country" placeholder="Country" required>
-                            <input type="tel" name="phone" placeholder="Phone Number" required>
+                            <input type="text" name="full_name" placeholder="Full Name">
+                            <input type="text" name="street_address" placeholder="Street Address">
+                            <input type="text" name="city" placeholder="City">
+                            <input type="text" name="state" placeholder="State/Province">
+                            <input type="text" name="zip_code" placeholder="ZIP/Postal Code">
+                            <input type="text" name="country" placeholder="Country">
+                            <input type="tel" name="phone" placeholder="Phone Number">
                         </div>
                     </div>
                     <div class="payment-info">
@@ -110,26 +123,27 @@
                     <h2>Order Summary</h2>
                     <div class="summary-row">
                         <span>Subtotal:</span>
-                        <span>$479.96</span>
+                        <span>$53.96</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping:</span>
-                        <span>$10.00</span>
+                        <span>$5.00</span>
                     </div>
                     <div class="summary-row total">
                         <span>Total:</span>
-                        <span>$489.96</span>
+                        <span>$58.96</span>
                     </div>
-                    <button type="submit" class="place-order-btn">Place Order</button>
+                    <button type="button" class="place-order-btn">Place Order</button>
                 </div>
             </form>
         </div>
     </main>
 
     <footer>
-        <div  class="container">
-            <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
-        </div>
+      <div class="container">
+        <p>&copy; Mahiru Shop. We are pleased to serve you.</p>
+      </div>
     </footer>
+    <script src="./js/popup.js"></script>
 </body>
 </html>
