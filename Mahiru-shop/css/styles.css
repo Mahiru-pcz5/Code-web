@@ -230,7 +230,7 @@ main .container {
 }
 
 .filter-section input[type="checkbox"]:checked::before {
-  content: '\2714';
+  content: "\2714";
   font-size: 14px;
   color: white;
   position: absolute;
@@ -270,16 +270,16 @@ main .container {
 }
 
 .category-item {
-  padding: 8px 16px;
-  background-color: #f4f4f4;
-  color: #2b2d42;
-  border-radius: 20px;
-  font-size: 14px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 8px 16px; /* Giữ nguyên padding gốc */
+  background-color: #d10024; /* Đổi màu nền thành đỏ */
+  color: #fff; /* Đổi màu chữ thành trắng */
+  border-radius: 20px; /* Giảm độ bo tròn xuống */
+  font-size: 14px; /* Giữ nguyên font size */
+  transition: background-color 0.3s ease; /* Chỉ giữ hiệu ứng đổi màu */
 }
 
 .category-item:hover {
-  background-color: #d10024;
+  background-color: #ff1a3e;
   color: #fff;
 }
 
@@ -290,7 +290,7 @@ main .container {
     overflow-x: auto;
     padding-bottom: 10px;
   }
-  
+
   .category-item {
     white-space: nowrap;
   }
@@ -417,9 +417,8 @@ footer {
   font-size: 18px;
 }
 .user-menu .icon:hover {
-color: #d10024;
+  color: #d10024;
 }
-
 
 /* Login Dropdown Styles */
 .user-actions {
