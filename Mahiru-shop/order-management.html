@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mahiru Shop</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./css/order.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">MAHIRU<span>.</span> ADMIN</h1>
+            <nav>
+                <ul>
+                    <li><a href="./admin.html">Dashboard</a></li>
+                    <li><a href="./user-management.html">User</a></li>
+                    <li><a href="./order-management.html">Orders</a></li>
+                    <li><a href="./add-product.html">Product</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="user-icon">
+                    <i data-lucide="user-circle"></i>
+                </div>
+                <span class="admin-name">Admin: Hatsu</span>
+                <a href="./loginad.html" class="logout">Log out</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Order Management</h1>
+            
+            <section class="card">
+                <h2>Order List</h2>
+                <div class="filters">
+                   From: <input type="date" id="start-date" name="start-date"> To:
+                    <input type="date" id="end-date" name="end-date"> Status: 
+                    <select id="order-status" name="order-status"> 
+                        <option value="">All Statuses</option>
+                        <option value="unprocessed">Unprocessed</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="canceled">Canceled</option>
+                    </select>
+                     Address:
+                    <select name="Address" id="Address">
+                    <option value="All Address">Show All</option>
+                    <option value="1">District 1</option>
+                    <option value="2">District 2</option>
+                    <option value="3">District 3</option>
+                </select>
+                    Sort-by
+                    <select id="sort-by" name="sort-by">
+                        <option value="date">Sort by Date</option>
+                        <option value="address">Sort by Address</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Address</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#2532</td>
+                            <td>Unprocessed</td>
+                            <td>2023-06-01</td>
+                            <td>District A</td>
+                            <td>$150.00</td>
+                            <td><a href="#view-details" class="btn">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#2533</td>
+                            <td>Confirmed</td>
+                            <td>2023-06-02</td>
+                            <td>District B</td>
+                            <td>$200.00</td>
+                            <td><a href="#view-details" class="btn">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#2534</td>
+                            <td>Delivered</td>
+                            <td>2023-06-03</td>
+                            <td>District C</td>
+                            <td>$180.00</td>
+                            <td><a href="#view-details" class="btn">View Details</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="card">
+                <h2>Business Performance Statistics</h2>
+                <h3>Product Statistics</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity Sold</th>
+                            <th>Revenue</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bocchi Hitori</td>
+                            <td>100</td>
+                            <td>$5000.00</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>GD.Frame Vidar</td>
+                            <td>75</td>
+                            <td>$3750.00</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Cirno Fumo</td>
+                            <td>50</td>
+                            <td>$2500.00</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h4>Total Revenue</h4>
+                        <p>$11,250.00</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Best-selling Product</h4>
+                        <p>Bocchi Hitori (100 sold)</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Least-selling Product</h4>
+                        <p>Cirno Fumo (50 sold)</p>
+                    </div>
+                </div>
+
+                <h3>Top 5 Customers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Revenue</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Customer A</td>
+                            <td>$2000.00</td>
+                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
+                        </tr>
+                        <tr>
+                            <td>Customer B</td>
+                            <td>$1800.00</td>
+                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
+                        </tr>
+                        <tr>
+                            <td>Customer C</td>
+                            <td>$1500.00</td>
+                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
+                        </tr>
+                        <tr>
+                            <td>Customer D</td>
+                            <td>$1200.00</td>
+                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
+                        </tr>
+                        <tr>
+                            <td>Customer E</td>
+                            <td>$1000.00</td>
+                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div>
+            <script>
+                lucide.createIcons();
+            </script>
+        </div>
+    </main>
+</body>
+</html>
