@@ -49,9 +49,11 @@ header {
   margin-right: 0px;
   font-size: 14px;
 }
+
 .name {
   margin-left: 5px;
 }
+
 .main-header {
   padding: 20px 0;
 }
@@ -83,7 +85,6 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar select,
 .search-bar input,
 .search-bar .search-button {
   border: none;
@@ -92,14 +93,8 @@ header {
   outline: none;
 }
 
-.search-bar select {
-  width: 25%;
-  background-color: #f8f8f8;
-  color: #555;
-}
-
 .search-bar input {
-  width: 50%;
+  width: 75%;
   color: #333;
 }
 
@@ -258,43 +253,29 @@ main .container {
 .apply-button:hover {
   background-color: #ff1a3e;
 }
-/* Thêm vào cuối file styles.css */
 
 /* Product Categories Styles */
 .product-categories {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }
 
 .category-item {
-  padding: 8px 16px; /* Giữ nguyên padding gốc */
-  background-color: #d10024; /* Đổi màu nền thành đỏ */
-  color: #fff; /* Đổi màu chữ thành trắng */
-  border-radius: 20px; /* Giảm độ bo tròn xuống */
-  font-size: 14px; /* Giữ nguyên font size */
-  transition: background-color 0.3s ease; /* Chỉ giữ hiệu ứng đổi màu */
+  padding: 8px 16px;
+  background-color: #d10024;
+  color: #fff;
+  text-align: center;
+  border-radius: 17px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
-
 .category-item:hover {
   background-color: #ff1a3e;
   color: #fff;
 }
 
-/* Responsive design for categories */
-@media (max-width: 768px) {
-  .product-categories {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
-
-  .category-item {
-    white-space: nowrap;
-  }
-}
 /* Product Grid Styles */
 .product-grid {
   width: 75%;
@@ -416,6 +397,7 @@ footer {
   margin-left: 15px;
   font-size: 18px;
 }
+
 .user-menu .icon:hover {
   color: #d10024;
 }
@@ -542,6 +524,16 @@ footer {
   main .container {
     flex-direction: column;
   }
+
+  .product-categories {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .category-item {
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 576px) {
@@ -556,10 +548,10 @@ footer {
     margin-bottom: 10px;
   }
 
-  .search-bar select,
   .search-bar input,
   .search-bar .search-button {
     width: 100%;
     margin-bottom: 10px;
   }
 }
+
