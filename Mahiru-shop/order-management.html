@@ -30,11 +30,17 @@
     </header>
 
     <main>
+    
         <div class="container">
-            <h1>Order Management</h1>
-            
-            <section class="card">
-                <h2>Order List</h2>
+            <div class="admin-panel">
+                <div class="admin-sidebar">
+                    <h2>Order Management</h2>
+                    <ul>
+                        <li><a href="./order-management.html">Order List</a></li>
+                        <li><a href="./business_performance.html">Business Performance</a></li>
+                </ul>
+                </div>
+                <section class="card" style="margin-bottom: 0px;  ">
                 <div class="filters">
                    From: <input type="date" id="start-date" name="start-date"> To:
                     <input type="date" id="end-date" name="end-date"> Status: 
@@ -51,12 +57,7 @@
                     <option value="1">District 1</option>
                     <option value="2">District 2</option>
                     <option value="3">District 3</option>
-                </select>
-                    Sort-by
-                    <select id="sort-by" name="sort-by">
-                        <option value="date">Sort by Date</option>
-                        <option value="address">Sort by Address</option>
-                    </select>
+                    </select> 
                 </div>
                 <table>
                     <thead>
@@ -74,117 +75,76 @@
                             <td>#2532</td>
                             <td>Unprocessed</td>
                             <td>2023-06-01</td>
-                            <td>District A</td>
+                            <td>District 1</td>
                             <td>$150.00</td>
-                            <td><a href="#view-details" class="btn">View Details</a></td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
                         </tr>
                         <tr>
                             <td>#2533</td>
                             <td>Confirmed</td>
                             <td>2023-06-02</td>
-                            <td>District B</td>
+                            <td>District 2</td>
                             <td>$200.00</td>
-                            <td><a href="#view-details" class="btn">View Details</a></td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
                         </tr>
                         <tr>
                             <td>#2534</td>
                             <td>Delivered</td>
                             <td>2023-06-03</td>
-                            <td>District C</td>
+                            <td>District 3</td>
                             <td>$180.00</td>
-                            <td><a href="#view-details" class="btn">View Details</a></td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <td>#2532</td>
+                            <td>Unprocessed</td>
+                            <td>2023-06-01</td>
+                            <td>District 1</td>
+                            <td>$150.00</td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#2533</td>
+                            <td>Confirmed</td>
+                            <td>2023-06-02</td>
+                            <td>District 2</td>
+                            <td>$200.00</td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#2534</td>
+                            <td>Delivered</td>
+                            <td>2023-06-03</td>
+                            <td>District 3</td>
+                            <td>$180.00</td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
+                        </tr>
+                        <tr>
+                            <td>#2534</td>
+                            <td>Delivered</td>
+                            <td>2023-06-03</td>
+                            <td>District 3</td>
+                            <td>$180.00</td>
+                            <td><a href="./detail-order.html" class="btn">View Details</a></td>
+                        </tr>
+                    </tbody>    
                 </table>
-            </section>
-
-            <section class="card">
-                <h2>Business Performance Statistics</h2>
-                <h3>Product Statistics</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity Sold</th>
-                            <th>Revenue</th>
-    
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Bocchi Hitori</td>
-                            <td>100</td>
-                            <td>$5000.00</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>GD.Frame Vidar</td>
-                            <td>75</td>
-                            <td>$3750.00</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Cirno Fumo</td>
-                            <td>50</td>
-                            <td>$2500.00</td>
-                            
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="stats">
-                    <div class="stat-item">
-                        <h4>Total Revenue</h4>
-                        <p>$11,250.00</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>Best-selling Product</h4>
-                        <p>Bocchi Hitori (100 sold)</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>Least-selling Product</h4>
-                        <p>Cirno Fumo (50 sold)</p>
-                    </div>
+                <div class="pagination-buttons" style="padding-top: 20px;">
+                    <button>«</button>
+                    <button>‹</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>›</button>
+                    <button>»</button>
                 </div>
-
-                <h3>Top 5 Customers</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Revenue</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Customer A</td>
-                            <td>$2000.00</td>
-                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Customer B</td>
-                            <td>$1800.00</td>
-                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Customer C</td>
-                            <td>$1500.00</td>
-                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Customer D</td>
-                            <td>$1200.00</td>
-                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Customer E</td>
-                            <td>$1000.00</td>
-                            <td><a href="#view-invoices" class="btn">View Invoices</a></td>
-                        </tr>
-                    </tbody>
-                </table>
             </section>
+            
+            </div>
+            
         </div>
+        
+    </div>
         <div>
             <script>
                 lucide.createIcons();
@@ -192,4 +152,9 @@
         </div>
     </main>
 </body>
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+    </div>
+</footer>
 </html>
