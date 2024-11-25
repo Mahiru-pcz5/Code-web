@@ -116,6 +116,10 @@ header {
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
+.search-bar input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
 
 .search-bar .search-button:hover {
   background-color: #a7001c;
@@ -375,6 +379,9 @@ footer {
   color: #fff;
   text-align: center;
   padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* User Menu Styles */
@@ -704,19 +711,6 @@ footer {
   border-radius: 5px;
 }
 
-.product-card .btn {
-  display: inline-block;
-  background-color: #d10024;
-  color: #fff;
-  padding: 10px 15px;
-  text-align: center;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
-.product-card .btn:hover {
-  background-color: #a0001f;
-}
 .pagination {
   display: flex;
   align-items: center;
@@ -806,4 +800,30 @@ footer {
   text-align: center;
   font-size: 14px;
   color: #333;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.pagination a {
+  color: #2b2d42;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #f4f4f4;
+  color: #d10024;
+}
+
+.pagination a.active {
+  background-color: #d10024;
+  color: white;
+  border: 1px solid #d10024;
 }
