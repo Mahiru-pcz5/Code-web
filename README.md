@@ -10,8 +10,6 @@
 
 -Nguyễn Văn An 3123411007
 
--Giảng Văn Hiển 3123411091
-
 -Lê Vũ Quang 3123411241
 
 
