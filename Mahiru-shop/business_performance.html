@@ -16,7 +16,7 @@
                     <li><a href="./admin.html">Dashboard</a></li>
                     <li><a href="./user-management.html">User</a></li>
                     <li><a href="./order-management.html">Orders</a></li>
-                    <li><a href="./add-product.html">Product</a></li>
+                    <li><a href="./product-management.html">Product</a></li>
                 </ul>
             </nav>
             <div class="user-info">
@@ -29,47 +29,113 @@
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="admin-panel">
-                <div class="admin-sidebar">
-                    <h2>Business Performance</h2>
-                    <ul>
+        <div class="container admin-panel" style="
+        border-left-width: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    ">
+            <div class="admin-sidebar">
+                
+                <h2>Order Management</h2>
+                <ul>
                         <li><a href="./order-management.html">Order List</a></li>
                         <li><a href="./business_performance.html">Business Performance</a></li>
+                        <li><a href="./top5customer.html">Top 5 Customer</a></li>
                 </ul>
-                </div>  
-            <section class="card" style="padding-left:85px ;">
+            </div>
+            <section class="admin-content">
                 <h3>Product Statistics</h3>
-                <table>
+                <div class="filters" style="margin-bottom: 20px,;justify-content: center;">
+                    <div class="filter-group">
+                        <label for="from-date">From:</label>
+                        <input type="date" id="from-date" name="from-date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="to-date">To:</label>
+                        <input type="date" id="to-date" name="to-date">
+                    </div>
+                    <a href="#" class="btn search-btn" style="
+                    margin-bottom: 27px;
+                    margin-top: 10px;
+                ">Search</a>
+                </div>
+                <table class="table-wrapper">
                     <thead>
                         <tr>
                             <th>Product</th>
                             <th>Quantity Sold</th>
                             <th>Revenue</th>
-    
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Bocchi Hitori</td>
-                            <td>100</td>
+                            <td>   100</td>
                             <td>$5000.00</td>
-                            
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>GD.Frame Vidar</td>
-                            <td>75</td>
+                            <td>   75</td>
                             <td>$3750.00</td>
-                            
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
                         </tr>
                         <tr>
                             <td>Cirno Fumo</td>
-                            <td>50</td>
+                            <td>   50</td>
                             <td>$2500.00</td>
-                            
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Godness Aqua</td>
+                            <td>   50</td>
+                            <td>$2500.00</td>
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GD Babartos</td>
+                            <td>   50</td>
+                            <td>$2500.00</td>
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Asuka L Soryu</td>
+                            <td>   50</td>
+                            <td>$2500.00</td>
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Kamen rider Kabuto</td>
+                            <td>   50</td>
+                            <td>$2500.00</td>
+                            <td>
+                                <a href="#" class="btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="pagination-buttons" style="padding-top: 20px;">
+                    <button>«</button>
+                    <button>‹</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>›</button>
+                    <button>»</button>
+                </div>
                 <div class="stats">
                     <div class="stat-item">
                         <h4>Total Revenue</h4>
@@ -84,52 +150,8 @@
                         <p>Cirno Fumo (50 sold)</p>
                     </div>
                 </div>
-
-                <h3>Top 5 Customers</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Revenue</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Jane Doe</td>
-                            <td>$2000.00</td>
-                            <td><a href="./customer-invoices.html" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Tsukishiro Yanagi</td>
-                            <td>$1800.00</td>
-                            <td><a href="./customer-invoices.html" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Burnice White</td>
-                            <td>$1500.00</td>
-                            <td><a href="./customer-invoices.html" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Ceaser King</td>
-                            <td>$1200.00</td>
-                            <td><a href="./customer-invoices.html" class="btn">View Invoices</a></td>
-                        </tr>
-                        <tr>
-                            <td>Nicole Demara</td>
-                            <td>$1000.00</td>
-                            <td><a href="./customer-invoices.html" class="btn">View Invoices</a></td>
-                        </tr>
-                    </tbody>
-                </table>
             </section>
         </div>
-        <div>
-            <script>
-                lucide.createIcons();
-            </script>
-        </div>
-
     </main>
 </body>
 <footer>
