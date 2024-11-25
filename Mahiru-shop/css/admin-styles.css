@@ -416,10 +416,6 @@ footer {
     font-weight: bold;
   }
   
-  .product-table tr:nth-child(even) {
-    background-color: #f8f8f8;
-  }
-  
   .product-table tr:hover {
     background-color: #e8e8e8;
   }

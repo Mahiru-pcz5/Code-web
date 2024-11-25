@@ -168,6 +168,7 @@ main {
     border-radius: 5px;
     margin-bottom: 2rem;
     padding: 1.5rem;
+    justify-content: center;
 }
 
 
@@ -186,28 +187,48 @@ main {
     border-radius: 4px;
     font-size: 14px;
 }
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.filter-group input[type="date"] {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
 
 /* Tables */
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+}
+
 table {
-    padding-left: 85px;
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1rem;
 }
 
 th, td {
-    padding: 0.75rem;
+    padding: 12px 15px;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
 th {
     background-color: #f8f8f8;
     font-weight: bold;
-    text-align: center; /* Center align the table headers */
-}
-
-td {
-    text-align: center;
 }
 
 tr:hover {
@@ -229,7 +250,23 @@ tr:hover {
 .btn:hover {
     background-color: rgb(31, 163, 31);
 }
+.search-btn {
+    display: inline-block;
+    background-color: #28a745; /* Xanh lá nổi bật */
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #28a745;
+    transition: background-color 0.3s, transform 0.2s;
+}
 
+.search-btn:hover {
+    background-color: #218838; /* Màu tối hơn khi hover */
+    transform: scale(1.05);    /* Phóng to nhẹ khi hover */
+}
 /* Statistics */
 .stats {
     display: flex;
