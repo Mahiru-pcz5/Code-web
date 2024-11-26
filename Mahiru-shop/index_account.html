@@ -66,80 +66,52 @@
 
     <main>
       <div class="container">
-        <aside class="sidebar">
-          <h3>Filters</h3>
-          <div class="filter-section">
-            <h4>Categories</h4>
-            <ul>
-              <li>
-                <label>
-                  <input type="checkbox" name="category" value="Gundam" />
-                  Gundam
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="category" value="Kamen Rider" />
-                  Kamen Rider
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="category" value="Standee" /> Standee
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="category" value="Keychain" /> Keychain
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="category" value="Plush" /> Plush
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="category" value="Figure" /> Figure
-                </label>
-              </li>
-            </ul>
-          </div>
-          <div class="filter-section">
-            <h4>Price Range</h4>
-            <ul>
-              <li>
-                <label>
-                  <input type="checkbox" name="price" value="0-20" /> Under $20
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="price" value="20-50" /> $20 - $50
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="price" value="50-100" /> $50 -
-                  $100
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input type="checkbox" name="price" value="100+" /> Over $100
-                </label>
-              </li>
-            </ul>
-          </div>
-          <div class="filter-apply">
-            <button
-              class="apply-button"
-              onclick="window.location.href='search_account.html'"
-            >
-              Apply
-            </button>
-          </div>
-        </aside>
+        <div class="filter-sidebar">
+          <form action="search.html" method="GET">
+            <h3>Name:</h3>
+            <div class="filter-name">
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter product name"
+                class="filter-input"
+              />
+            </div>
+
+            <h3>Category:</h3>
+            <div class="filter-category">
+              <select name="category" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="gundam">Gundam</option>
+                <option value="kamen_rider">Kamen Rider</option>
+                <option value="standee">Standee</option>
+                <option value="keychain">Keychain</option>
+                <option value="plush">Plush</option>
+                <option value="figure">Figure</option>
+              </select>
+            </div>
+
+            <h3>Price:</h3>
+            <div class="filter-price">
+              <label for="priceRange">Range:</label>
+              <div class="range-container custom-range">
+                <div class="range-label">0</div>
+                <input
+                  type="range"
+                  id="priceRange"
+                  name="price"
+                  min="0"
+                  max="150"
+                  value="50"
+                  class="filter-input"
+                />
+                <div class="range-label">150</div>
+              </div>
+            </div>
+
+            <button type="submit" class="filter-button">Search</button>
+          </form>
+        </div>
         <section class="product-grid">
           <div class="product-categories">
             <a href="index_account.html" class="category-item">All</a>
