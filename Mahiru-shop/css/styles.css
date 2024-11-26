@@ -554,4 +554,101 @@ footer {
     margin-bottom: 10px;
   }
 }
+.filter-sidebar {
+  width: 200px;
+  padding: 15px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  margin-right: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  max-height: 53vh;
+  position: relative;
+  top: 58px;
+}
 
+.filter-sidebar:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: #ccc;
+}
+
+.filter-sidebar h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.filter-price {
+  margin-bottom: 20px;
+}
+
+.filter-price input[type="range"] {
+  width: 100%;
+}
+
+.filter-price p {
+  font-size: 1rem;
+  color: #333;
+}
+.search-results h1 {
+  margin-left: 390px;
+  font-size: 24px;
+}
+.filter-sidebar h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.filter-input,
+.filter-select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filter-price label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.filter-price p {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #666;
+}
+.filter-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ed1313;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-button:hover {
+  background-color: #bc1818;
+}
+.custom-range {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.custom-range .filter-input {
+  flex-grow: 1;
+  margin: 0 10px;
+  width: 100%;
+}
+
+.custom-range .range-label {
+  width: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
