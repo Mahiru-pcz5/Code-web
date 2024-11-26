@@ -663,9 +663,18 @@ footer {
 .filter-sidebar {
   width: 200px;
   padding: 15px;
-  background-color: #f4f4f4;
+  background-color: #fafafa;
   border-radius: 8px;
   margin-right: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  max-height: 53vh;
+}
+
+.filter-sidebar:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Hiệu ứng hover */
+  border-color: #ccc;
 }
 
 .filter-sidebar h3 {
