@@ -254,28 +254,6 @@ main .container {
   background-color: #ff1a3e;
 }
 
-/* Product Categories Styles */
-.product-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.category-item {
-  padding: 8px 16px;
-  background-color: #d10024;
-  color: #fff;
-  text-align: center;
-  border-radius: 17px;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-.category-item:hover {
-  background-color: #ff1a3e;
-  color: #fff;
-}
-
 /* Product Grid Styles */
 .product-grid {
   width: 75%;
@@ -356,6 +334,7 @@ main .container {
   justify-content: center;
   align-items: center;
   margin-top: 30px;
+  margin-left: 300px;
 }
 
 .pagination a {
@@ -525,15 +504,8 @@ footer {
     flex-direction: column;
   }
 
-  .product-categories {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
 
-  .category-item {
-    white-space: nowrap;
-  }
+
 }
 
 @media (max-width: 576px) {
@@ -555,17 +527,17 @@ footer {
   }
 }
 .filter-sidebar {
-  width: 200px;
+  width: 250px;
   padding: 15px;
   background-color: #fafafa;
   border-radius: 8px;
-  margin-right: 20px;
+  margin-left: 0px;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  max-height: 53vh;
+  max-height: 58.25vh;
   position: relative;
-  top: 58px;
+  ;
 }
 
 .filter-sidebar:hover {
@@ -576,10 +548,6 @@ footer {
 .filter-sidebar h3 {
   font-size: 1.5rem;
   margin-bottom: 15px;
-}
-
-.filter-price {
-  margin-bottom: 20px;
 }
 
 .filter-price input[type="range"] {
@@ -621,18 +589,19 @@ footer {
 }
 .filter-button {
   width: 100%;
-  padding: 10px;
-  background-color: #ed1313;
+  padding: 13.5px;
+  background-color: #d10024;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   font-size: 16px;
   cursor: pointer;
   text-align: center;
+  margin-top: 30px;
 }
 
 .filter-button:hover {
-  background-color: #bc1818;
+  background-color: #ff1a3e;
 }
 .custom-range {
   display: flex;
@@ -651,4 +620,10 @@ footer {
   text-align: center;
   font-size: 14px;
   color: #333;
+}
+.filter-name{
+  margin-bottom: 20px;
+}
+.filter-category{
+  margin-bottom:20px;
 }
