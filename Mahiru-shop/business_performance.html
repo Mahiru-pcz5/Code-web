@@ -45,20 +45,31 @@
             </div>
             <section class="admin-content">
                 <h3>Product Statistics</h3>
-                <div class="filters" style="margin-bottom: 20px,;justify-content: center;">
-                    <div class="filter-group">
-                        <label for="from-date">From:</label>
-                        <input type="date" id="from-date" name="from-date">
+                <div class="filters">
+                    <div class="filters-row">
+                      <div class="filter-group">
+                        <label class="filter-label"></label>
+                        <div class="date-range">
+                          <div>
+                            <label>From:</label>
+                            <input type="date" id="start-date" name="start-date" />
+                          </div>
+                          <div class="date-to">
+                            <label>To:</label>
+                            <input type="date" id="end-date" name="end-date" />
+                          </div>
+                        </div>
                     </div>
-                    <div class="filter-group">
-                        <label for="to-date">To:</label>
-                        <input type="date" id="to-date" name="to-date">
+      
+
+      
+                    <button class="btn">Search</button>
+                      </div>
                     </div>
-                    <a href="#" class="btn search-btn" style="
-                    margin-bottom: 27px;
-                    margin-top: 10px;
-                ">Search</a>
-                </div>
+
+      
+
+
                 <table class="table-wrapper">
                     <thead>
                         <tr>
