@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Details - Mahiru Shop</title>
+    <title>Mahiru Shop</title>
     <link rel="stylesheet" href="./css/product_details.css" />
     <link
       rel="stylesheet"
@@ -16,7 +16,7 @@
         <div class="container">
           <div class="contact-info">
             <span><i class="fas fa-phone"></i> 012345678</span>
-            <span><i class="fas fa-envelope"></i> info@mahirushop.com</span>
+            <span><i class="fas fa-envelope"></i> mahiru@gmail.com</span>
             <span><i class="fas fa-map-marker-alt"></i>1104 Wall Street</span>
           </div>
           <div class="user-actions">
@@ -26,9 +26,7 @@
             </a>
             <div class="login-dropdown">
               <a href="index.html" class="login-option">Log out</a>
-              <a href="order_history.html" class="login-option"
-                >Order history</a
-              >
+              <a href="order_history.html" class="login-option">Order history</a>
             </div>
           </div>
         </div>
@@ -37,23 +35,14 @@
         <div class="container">
           <div class="logo">
             <a href="index_account.html" class="logo-link"
-              ><h1>MAHIRU<span>.</span></h1></a
-            >
+              ><h1>MAHIRU<span>.</span></h1></a>
           </div>
           <div class="search-bar">
             <input type="text" placeholder="Search here" />
             <a href="search_account.html" class="search-button">Search</a>
           </div>
           <div class="user-menu">
-            <a href="index_account.html" class="icon"
-              ><i class="fas fa-bell"></i
-            ></a>
-            <a href="wishlist.html" class="icon"
-              ><i class="fas fa-heart"></i
-            ></a>
-            <a href="cart.html" class="icon"
-              ><i class="fas fa-shopping-cart"></i
-            ></a>
+            <a href="cart.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
           </div>
         </div>
       </div>
@@ -89,8 +78,8 @@
                 <span class="star">★</span>
                 <span class="star">★</span>
                 <span class="star-empty">☆</span>
-                <span class="review-count">(12 Reviews)</span>
               </div>
+              <p class = "description" > From Neon Genesis Evangelion</p>
               <p class="description">
                 Stunning collectible figure of Asuka Langley Soryu from Neon
                 Genesis Evangelion, in her iconic red plugsuit. Capturing her
@@ -102,10 +91,12 @@
                 <input type="number" value="1" min="1" class="quantity-input" />
                 <button class="quantity-btn plus">+</button>
               </div>
-              <button class="add-to-cart">Add to Cart</button>
-              <button class="add-to-wishlist">
-                <i class="fas fa-heart"></i> Add to Wishlist
-              </button>
+              <button class="add-to-cart" type="submit"  onclick="myFunction()">Add to Cart</button>
+              <script>
+                  function myFunction() {
+                    alert("Added to cart successfully");
+                  }
+                  </script>
             </div>
           </div>
         </div>
