@@ -172,7 +172,12 @@ main {
     top: 50%;
     transform: translateY(-50%);
 }
-
+.search-btn {
+    background-color: green;
+    width: 30px;
+    height: 30px;
+    margin-left: -35px; /* Đặt nút vào vị trí bên cạnh input */
+  }
 .action-buttons {
     display: flex;
     gap: 10px;
