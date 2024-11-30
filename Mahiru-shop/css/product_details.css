@@ -43,14 +43,12 @@ header {
 .top-bar .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .contact-info span,
 .user-actions span,
 .user-actions a {
-    margin-right: 15px
-;
+    margin-right: 0px;
     font-size: 14px;
 }
 
@@ -91,34 +89,35 @@ header {
 
 .search-bar input,
 .search-bar .search-button {
-    border: none;
-    padding: 8px 10px;
-    font-size: 14px;
-    outline: none;
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  outline: none;
 }
 
 .search-bar input {
-    width: 75%;
-    color: #333;
+  width: 75%;
+  color: #333;
 }
 
 .search-bar .search-button {
-    width: 25%;
-    background-color: #d10024;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 0 8px 8px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
+  width: 25%;
+  background-color: #d10024;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 0 8px 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 .search-bar .search-button:hover {
-    background-color: #a7001c;
+  background-color: #a7001c;
 }
+
 
 /* Navigation Styles */
 nav {
@@ -162,7 +161,7 @@ main {
 
 main .container {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
 }
 
 /* Product Content Styles */
@@ -217,11 +216,6 @@ main .container {
 
 .star, .star-empty {
     color: #ffc107;
-}
-
-.review-count {
-    color: #777;
-    margin-left: 5px;
 }
 
 .description {
@@ -292,21 +286,23 @@ footer {
 .user-menu {
     display: flex;
     align-items: center;
-}
-
-.user-menu a {
+  }
+  
+  .user-menu a {
     color: #fff;
     margin-left: 15px;
     font-size: 18px;
-}
-
-.user-menu .icon:hover {
+  }
+  
+  .user-menu .icon:hover {
     color: #d10024;
-}
+  }
 
 /* Login Dropdown Styles */
 .user-actions {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .login-link {
@@ -327,6 +323,7 @@ footer {
     border-radius: 4px;
     min-width: 120px;
     z-index: 1000;
+    overflow: hidden;
 }
 
 .user-actions:hover .login-dropdown {
@@ -339,12 +336,16 @@ footer {
     display: block;
     transition: background-color 0.3s ease, color 0.3s ease;
     font-size: 14px;
-}
-
-.login-option:hover {
+  }
+  
+  .login-option:hover {
     background-color: #f8f8f8;
     color: #d10024;
-}
+  }
+  
+  .login-option:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -354,41 +355,64 @@ footer {
 }
 
 @media (max-width: 992px) {
-    .product-details {
-        flex-direction: column;
-    }
-
-    .product-image, .product-info {
-        width: 100%;
-    }
-
-    .search-bar {
-        max-width: 100%;
-    }
-
-    .main-header .container {
+    .product-card {
+        width: 45%;
+      }
+    
+      .product-row {
         flex-wrap: wrap;
-    }
-
-    .logo, .search-bar, .user-menu {
+      }
+    
+      .search-bar {
+        width: 60%;
+      }
+    
+      .product-grid {
         width: 100%;
-        margin-bottom: 15px;
-    }
+      }
 }
 
 @media (max-width: 768px) {
-    main .container {
-        flex-direction: column;
+    .sidebar {
+      width: 100%;
+      margin-bottom: 30px;
+      margin-right: 0;
     }
-
+  
+    .product-grid {
+      width: 100%;
+    }
+  
+    .product-card {
+      width: 100%;
+    }
+  
+    .main-header .container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .search-bar {
+      width: 100%;
+      margin-top: 20px;
+    }
+  
+    .user-menu {
+      margin-top: 20px;
+    }
+  
     nav ul {
-        flex-wrap: wrap;
+      flex-wrap: wrap;
     }
-
+  
     nav ul li {
-        margin: 5px;
+      margin: 5px;
     }
-}
+  
+    main .container {
+      flex-direction: column;
+    }
+  }
 
 @media (max-width: 576px) {
     .top-bar .container {
@@ -396,7 +420,8 @@ footer {
         align-items: center;
     }
 
-    .contact-info, .user-actions {
+    .contact-info, 
+    .user-actions {
         text-align: center;
         margin-bottom: 10px;
     }
