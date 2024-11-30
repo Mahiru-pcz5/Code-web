@@ -44,6 +44,10 @@
                                 <input type="text" id="product-name" name="product-name" value="Gundam Model XYZ" >
                             </div>
                             <div class="form-group">
+                                <label for="product-name">Short Introduction</label>
+                                <input type="text" id="product-name" name="product-name" >
+                            </div>
+                            <div class="form-group">
                                 <label for="product-description">Description</label>
                                 <textarea id="product-description" name="product-description" ></textarea>
                             </div>
@@ -68,16 +72,16 @@
                                 <input type="file" id="product-image" name="product-image" accept="image/*">
                                 <p class="help-text">Leave blank to keep the current image</p>
                             </div>
-                            <button type="submit" onclick="myFunction()" class="action-btn" style="background-color: green; color: white;">update</button>
+                            <a href="edit-product.html" onclick="myFunction()" class="action-btn" style="background-color:green;color: white; ">Update</a>
                             <script>
                                 function myFunction() {
-                          alert("added product successful");
+                          alert("Update product successful");
                         }
                              </script>
-                              <button type="submit" onclick="del()" class="action-btn" style="background-color: red; color: white;">Delete</button>
+                              <a href="product-management.html" onclick="del()" class="action-btn" style="background-color: red; color: white;">Delete</a>
                             <script>
                               function del() {
-                                const confirmation = confirm("Do you want to delete");
+                                const confirmation = confirm("Do you want to delete ?");
                                 if (confirmation) {
                                   alert("Deleted Succesfuly");
                                 } else {

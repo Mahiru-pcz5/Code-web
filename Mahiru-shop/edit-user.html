@@ -46,17 +46,17 @@
                             <form class="user-form">
                                 <div class="form-group">
                                     <label for="edit-username">Username:</label>
-                                    <input type="text" id="edit-username" name="edit-username">
+                                    <input type="text" id="edit-username" name="edit-username" value="JaneDoe">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="edit-email">Email:</label>
-                                    <input type="email" id="edit-email" name="edit-email">
+                                    <input type="email" id="edit-email" name="edit-email" value="JaneDoeIsmyWife@gmail.com">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="edit-display-name">Display Name:</label>
-                                    <input type="text" id="edit-display-name" name="edit-display-name">
+                                    <input type="text" id="edit-display-name" name="edit-display-name" value="Jane Doe">
                                 </div>
 
                                 <div class="form-group">
@@ -72,7 +72,7 @@
                                     <label for="edit-status">Status:</label>
                                     <select id="edit-status" name="edit-status">
                                         <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                        <option value="inactive">Deactive</option>
                                     </select>
                                 </div>
                                 <div class="form-actions">
@@ -82,7 +82,8 @@
                                   alert("Changing info successful");
                                 }
                                      </script>
-                                    <button type="submit" onclick="del()" class="action-btn" style="background-color: red; color: white;">Delete</button>
+                                    <a href="user-management.html" onclick="del()" class="action-btn" style="background-color: red; color: white;">Delete</a>
+
                             <script>
                               function del() {
                                 const confirmation = confirm("Do you want to delete this user");
