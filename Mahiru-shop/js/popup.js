@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
-            alert("Added to cart");
+            alert("Collection updated successfully");
             // Uncomment the next line if you want to redirect to the cart page
             // window.location.href = 'cart.html';
         });
