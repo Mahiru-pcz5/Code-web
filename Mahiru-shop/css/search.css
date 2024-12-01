@@ -116,7 +116,6 @@ header {
   background-color: #a7001c;
 }
 
-
 .user-menu .icon:hover {
   color: #d10024;
 }
@@ -172,18 +171,16 @@ main .container {
   background-color: #eeecec;
   padding: 15px;
   border-radius: 0;
-  width: 75%; /* Match product-grid width */
-  justify-content: center;
-  
+  width: 100%; /* Match product-grid width */
+  justify-content: space-between;
 }
 
 .sort-label {
   align-content: center;
   font-size: px;
-  margin-right: 10px;
+  margin-left: 10px;
   color: #333;
 }
-
 
 .filter-btn {
   background-color: #fff;
@@ -192,7 +189,7 @@ main .container {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 15px;
+  margin-right: 0px;
   font-size: 16px;
 }
 
@@ -202,7 +199,6 @@ main .container {
   color: #fff;
   border-color: #d10024;
 }
-
 
 .filter-option {
   position: relative;
@@ -572,12 +568,11 @@ footer {
     flex-wrap: wrap;
   }
 
-  
   .filter-btn,
   .filter-option {
     margin-bottom: 10px;
   }
-  
+
   .filter-option {
     width: 100%;
   }
@@ -614,9 +609,6 @@ footer {
   main .container {
     flex-direction: column;
   }
-
-
-
 }
 
 @media (max-width: 576px) {
@@ -648,8 +640,7 @@ footer {
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   max-height: 58.25vh;
   position: relative;
-  margin-top: 129px
-  ;
+  margin-top: 129px;
 }
 
 .filter-sidebar:hover {
@@ -671,7 +662,6 @@ footer {
   color: #333;
 }
 .search-results h1 {
-
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -734,9 +724,9 @@ footer {
   font-size: 14px;
   color: #333;
 }
-.filter-name{
+.filter-name {
   margin-bottom: 20px;
 }
-.filter-category{
-  margin-bottom:20px;
+.filter-category {
+  margin-bottom: 20px;
 }
