@@ -1,0 +1,133 @@
+/* Checkout Container Styles */
+.checkout-form {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.page-title {
+    font-size: 24px;
+    color: #2b2d42;
+    margin-bottom: 20px;
+}
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* Shipping Information Styles */
+.shipping-info,
+.payment-info {
+    width: 48%;
+}
+
+.shipping-info h2,
+.payment-info h2 {
+    font-size: 18px;
+    color: #2b2d42;
+    margin-bottom: 15px;
+}
+
+.address-selection,
+.new-address-form,
+.payment-options,
+.credit-card-form {
+    margin-bottom: 20px;
+}
+
+.address-selection h3,
+.new-address-form h3,
+.credit-card-form h3 {
+    font-size: 16px;
+    color: #2b2d42;
+    margin-bottom: 10px;
+}
+
+select,
+input[type="text"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Payment Method Styles */
+.payment-options label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-details input {
+    width: 48%;
+}
+
+/* Order Summary Styles */
+.order-summary {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.order-summary h2 {
+    font-size: 18px;
+    color: #2b2d42;
+    margin-bottom: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #2b2d42;
+}
+
+.summary-row.total {
+    font-weight: bold;
+    font-size: 16px;
+    border-top: 1px solid #e1e1e1;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.place-order-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #d10024;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.place-order-btn:hover {
+    background-color: #ff1a3e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+
+    .shipping-info,
+    .payment-info {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}

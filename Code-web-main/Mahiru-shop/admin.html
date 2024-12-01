@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mahiru Shop</title>
+    <link rel="stylesheet" href="./css/admin-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container">
+                <h1 class="logo">MAHIRU<span>.</span> ADMIN</h1>
+                <nav>
+                    <ul>
+                        <li><a href="./admin.html">Dashboard</a></li>
+                        <li><a href="./user-management.html">User</a></li>
+                        <li><a href="./order-management.html">Orders</a></li>
+                        <li><a href="./product-management.html">Product</a></li>
+                        <li><a href="./business_performance.html">Statistic</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    <div class="user-icon">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <span class="admin-name">Admin: Hatsu</span>
+                    <a href="./loginad.html" class="logout">Log out</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="admin-panel">
+                    <div class="admin-content">
+                        <h1>Dashboard Overview</h1>
+                        <div class="dashboard-stats">
+                            <div class="stat-card">
+                                <h3>Total Products</h3>
+                                <p class="stat-number">1,234</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Total Orders</h3>
+                                <p class="stat-number">567</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Total Customers</h3>
+                                <p class="stat-number">890</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Revenue</h3>
+                                <p class="stat-number">$11,250</p>
+                            </div>
+                        </div>
+
+                        <h2>Recent Orders</h2>
+                        <table class="order-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#12345</td>
+                                    <td>John Smith</td>
+                                    <td>2024-03-15</td>
+                                    <td>$99.99</td>
+                                    <td>Processing</td>
+                                    <td><a href="detail-order.html" class="action-btn">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#12346</td>
+                                    <td>Jane Doe</td>
+                                    <td>2024-03-14</td>
+                                    <td>$149.99</td>
+                                    <td>Shipped</td>
+                                    <td><a href="detail-order.html" class="action-btn">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#12347</td>
+                                    <td>Bob Johnson</td>
+                                    <td>2024-03-13</td>
+                                    <td>$79.99</td>
+                                    <td>Delivered</td>
+                                    <td><a href="detail-order.html" class="action-btn">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2>Top Selling Products</h2>
+                        <div class="product-grid">
+                            <div class="product-card">
+                                <img src="./img/Bocchi.jpeg" alt="Bocchi the rock">
+                                <h3>Gotou Hitori</h3>
+                                <p class="price">$59.99</p>
+                                <p class="sales">Sales: 100</p>
+                                <a class="action-btn" href="edit-product.html">Edit</a>
+                            </div>
+                            <div class="product-card">
+                                <img src="./img/Cirno.jpg" alt="Fumo plusie">
+                                <h3>Fumo Cirno</h3>
+                                <p class="price">$54.99</p>
+                                <p class="sales">Sales: 85</p>
+                                <a class="action-btn" href="edit-product.html">Edit</a>
+                            </div>
+                            <div class="product-card">
+                                <img src="./img/Vidar.jpg" alt="Gundam Vidar">
+                                <h3>Gundam Frame Vidar</h3>
+                                <p class="price">$64.99</p>
+                                <p class="sales">Sales: 75</p>
+                                <a class="action-btn" href="edit-product.html">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

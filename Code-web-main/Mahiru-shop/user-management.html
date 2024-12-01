@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Mahiru Shop Admin</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container">
+                <h1 class="logo">MAHIRU<span>.</span> ADMIN</h1>
+                <nav>
+                    <ul>
+                        <li><a href="./admin.html">Dashboard</a></li>
+                        <li><a href="./user-management.html">User</a></li>
+                        <li><a href="./order-management.html">Orders</a></li>
+                        <li><a href="./product-management.html">Product</a></li>
+                        <li><a href="./business_performance.html">Statistic</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    <div class="user-icon">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <span class="admin-name">Admin: Hatsu</span>
+                    <a href="./loginad.html" class="logout">Log out</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="admin-panel">
+                    <div class="admin-sidebar">
+                        <h2>User Management</h2>
+                        <ul>
+                            <li><a href="./user-management.html">User List</a></li>
+                            <li><a href="./add-user.html">Add New User</a></li>
+                        </ul>
+                    </div>
+                    <div class="admin-content">
+                        <div class="action-bar">
+                            <div class="search-bar">
+                                <input type="text" placeholder="Search for user name">
+                            </div>        
+                        </div>
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>User Name</th>
+                                    <th>Email Address</th>
+                                    <th>User Role</th>
+                                    <th>Status</th>
+                                    <th>Lock</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Jane</td>
+                                    <td>JaneDoeIsmyWife@gmail.com</td>
+                                    <td>Management</td>
+                                    <td><span class="status status-active">Active</span></td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox" >
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="edit-user.html" class="action-btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                                    </td>
+ 
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Anby</td>
+                                    <td>hello123@gmail.com</td>
+                                    <td>Admin</td>
+                                    <td><span class="status status-active">Active</span></td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox" >
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="edit-user.html" class="action-btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Alexandrina</td>
+                                    <td>hello123@gmail.com</td>
+                                    <td>User</td>
+                                    <td><span class="status status-active">Active</span></td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox" >
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="edit-user.html" class="action-btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Abasa</td>
+                                    <td>hello123@gmail.com</td>
+                                    <td>User</td>
+                                    <td><span class="status status-inactive">Deactive</span></td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="edit-user.html" class="action-btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5   </td>
+                                    <td>DreamyBull</td>
+                                    <td>hello123@gmail.com</td>
+                                    <td>Admin</td>
+                                    <td><span class="status status-active">Active</span></td>
+                                    <td>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="edit-user.html" class="action-btn" style="background-color: green;border-color: green; color: white">Edit</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                            <div class="pagination-buttons" style="padding-top: 20px;">
+                                <button>«</button>
+                                <button>‹</button>
+                                <button>1</button>
+                                <button>2</button>
+                                <button>3</button>
+                                <button>›</button>
+                                <button>»</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Mahiru Shop. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
