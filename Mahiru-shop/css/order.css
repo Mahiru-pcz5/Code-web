@@ -26,6 +26,7 @@ body {
   border: 1px solid #ddd;
   font-weight: bold;
   background-color: #f8f8f8;
+  font-size: 1.2em;
 }
 
 .customer-info td {
