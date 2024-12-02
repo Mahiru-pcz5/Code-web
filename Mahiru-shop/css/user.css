@@ -290,9 +290,9 @@ input:checked + .slider:before {
     align-items: center;
     margin-top: 30px;
     gap: 5px;
-}
-
-.pagination a {
+  }
+  
+  .pagination a {
     min-width: 40px;
     height: 40px;
     display: flex;
@@ -304,19 +304,19 @@ input:checked + .slider:before {
     background-color: #fff;
     font-size: 14px;
     transition: all 0.2s ease-in-out;
-}
-
-.pagination a:hover {
+  }
+  
+  .pagination a:hover {
     background-color: #f8f9fa;
     border-color: #dee2e6;
-    color: rgb(32, 199, 77);
-}
-
-.pagination a.active {
-    background-color: green;
-    border-color: green;
+    color: #008000;
+  }
+  
+  .pagination a.active {
+    background-color: #008000;
+    border-color: #008000;
     color: white;
-}
+  }
 
 
 footer {
