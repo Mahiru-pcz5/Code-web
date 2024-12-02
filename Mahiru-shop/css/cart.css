@@ -82,13 +82,13 @@
 }
 
 .update-cart-btn {
-    background-color: #0074D9;
+    background-color: #ff1a1a;
     color: #fff;
     margin-top: 20px;
 }
 
 .update-cart-btn:hover {
-    background-color: #0056b3;
+    background-color: #ff1a3e;
 }
 
 .checkout-btn {
