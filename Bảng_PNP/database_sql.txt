@@ -23,3 +23,21 @@ INSERT INTO products (id, name, description, price, image, category) VALUES
 (10, 'Barbatos lupus rex', 'Mobile Suit Gundam: IBO', 99.99, 'img/Barbatos_lupus_rex.webp', 'Gundam'),
 (11, 'pearto', 'Mobile Suit Gundam: IBO', 99.99, 'img/pearto.jpg', 'Plush'),
 (12, 'Nendoroid Tatsumaki', 'One Punch Man', 9.99, 'img/Tatsumaki.webp', 'Figure');
+
+users-database:
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('Admin', 'User') NOT NULL,
+    status ENUM('Active', 'Deactivate') NOT NULL
+);
+
+INSERT INTO users (username, email, password, role, status) VALUES
+('Jane', 'JaneDoeIsmyWife@gmail.com', '123456', 'Admin', 'Active'),
+('Anby', 'S0@gmail.com', '123456', 'Admin', 'Active'),
+('Alexandrina', 'Rina@gmail.com', '123456', 'User', 'Active'),
+('Abasa', 'Med@gmail.com', '123456', 'User', 'Deactivate'),
+('Miyabi', 'Melon@gmail.com', '123456', 'Admin', 'Active');
