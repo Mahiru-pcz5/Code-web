@@ -1,3 +1,54 @@
+<?php
+session_start();
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "mahiru_shop";
+
+// Kết nối MySQL
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+// Xử lý khi form gửi dữ liệu
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $email = $_POST["email"];
+    $role = $_POST["role"];
+
+    // Kiểm tra email đã tồn tại chưa
+    $check_stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $check_stmt->bind_param("s", $email);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+    
+    if ($check_stmt->num_rows > 0) {
+        echo "<script>alert('Email is already exits.'); window.history.back();</script>";
+        exit();
+    }
+    $check_stmt->close();
+
+    // Thêm người dùng vào database
+    $stmt = $conn->prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $password, $email, $role);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Thêm user thành công!'); window.location.href = 'user-management.php';</script>";
+    } else {
+        echo "<script>alert('Lỗi khi thêm user!');</script>";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +93,7 @@
                         </ul>
                     </div>
                     <div class="admin-content">
-                        <form class="user-form">
+                    <form class="user-form" action="add-user.php" method="post">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" id="username" name="username" >
@@ -55,11 +106,6 @@
                                     <button type="button" class="password-toggle" aria-label="Toggle password visibility">
                                     </button>
                                 </div>
-                            <div class="form-group">
-                                <label for="display-name">Display Name</label>
-                                <input type="text" id="display-name" name="display-name" >
-                            </div>
-
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" >
@@ -74,12 +120,7 @@
                                 </select>
                             </div>
                             <div class="form-actions">
-                                <button type="submit" onclick="myFunction()" class="action-btn" style="background-color: green; color: white;">Add</button>
-                                <script>
-                                    function myFunction(){
-                                        alert("add user successfully")
-                                    }
-                                </script>
+                                <button type="submit" onclick="myFunction()" class="action-btn" style="background-color: green; color: white;">Add</button> 
                             </div>
                         </form>
                     </div>

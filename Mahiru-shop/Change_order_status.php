@@ -24,7 +24,7 @@
                 <div class="user-icon">
                     <i data-lucide="user-circle"></i>
                 </div>
-                <span class="admin-name">Admin: Hatsu</span>
+                <span class="admin-name">Admin</span>
                 <a href="./loginad.php" class="logout">Log out</a>
             </div>
         </div>
