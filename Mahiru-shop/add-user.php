@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User - Mahiru Shop Admin</title>
+    <link rel="stylesheet" href="./css/user.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="page-container">
+        <header>
+            <div class="container">
+                <h1 class="logo">MAHIRU<span>.</span> ADMIN</h1>
+                <nav>
+                    <ul>
+                        <li><a href="./admin.php">Dashboard</a></li>
+                        <li><a href="./user-management.php">User</a></li>
+                        <li><a href="./order-management.php">Orders</a></li>
+                        <li><a href="./product-management.php">Product</a></li>
+                        <li><a href="./business_performance.php">Statistic</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    <div class="user-icon">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <span class="admin-name">Admin: Hatsu</span>
+                    <a href="./loginad.php" class="logout">Log out</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="admin-panel">
+                    <div class="admin-sidebar">
+                        <h2>User Management</h2>
+                        <ul>
+                            <li><a href="./user-management.php">User List</a></li>
+                            <li><a href="./add-user.php">Add New User</a></li>
+                        </ul>
+                    </div>
+                    <div class="admin-content">
+                        <form class="user-form">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="password-input">
+                                    <input type="password" id="password" name="password" >
+                                    <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                                    </button>
+                                </div>
+                            <div class="form-group">
+                                <label for="display-name">Display Name</label>
+                                <input type="text" id="display-name" name="display-name" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select id="role" name="role" >
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manager">Manager</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" onclick="myFunction()" class="action-btn" style="background-color: green; color: white;">Add</button>
+                                <script>
+                                    function myFunction(){
+                                        alert("add user successfully")
+                                    }
+                                </script>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy;Mahiru Shop. We are pleased to serve you.</p>
+            </div>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
