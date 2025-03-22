@@ -63,8 +63,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span class="name">Login/Sign up</span>
                     </a>
                     <div class="login-dropdown">
-                        <a href="login.html" class="login-option">Login</a>
-                        <a href="sign_up.html" class="login-option">Sign up</a>
+                        <a href="login.php" class="login-option">Login</a>
+                        <a href="sign_up.php" class="login-option">Sign up</a>
                     </div>
                 </div>
             </div>
@@ -72,9 +72,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="main-header">
             <div class="container">
                 <div class="logo">
-                    <a href="search.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
+                    <a href="index.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
-                <<div class="search-bar">
+                <div class="search-bar">
     <form action="search.php" method="GET">
         <input type="text" name="name" placeholder="Search here" value="<?php echo htmlspecialchars($searchName); ?>" />
         <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>" />
@@ -88,13 +88,13 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <nav>
             <div class="container">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="category.html">Gundam</a></li>
-                    <li><a href="category.html">Kamen Rider</a></li>
-                    <li><a href="category.html">Standee</a></li>
-                    <li><a href="category.html">Keychain</a></li>
-                    <li><a href="category.html">Plush</a></li>
-                    <li><a href="category.html">Figure</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="category.php">Gundam</a></li>
+                    <li><a href="category.php">Kamen Rider</a></li>
+                    <li><a href="category.php">Standee</a></li>
+                    <li><a href="category.php">Keychain</a></li>
+                    <li><a href="category.php">Plush</a></li>
+                    <li><a href="category.php">Figure</a></li>
                 </ul>
             </div>
         </nav>
@@ -132,7 +132,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
 
-                    <button type="submit" class="filter-button">Search</button>
+                    <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
                 </form>
             </div>
 
