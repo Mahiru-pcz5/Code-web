@@ -23,7 +23,7 @@ if (!empty($searchName)) {
     $sql .= " AND name LIKE :name";
 }
 if ($category != 'all') {
-    $sql .= " AND description LIKE :category";
+    $sql .= " AND category = :category";
 }
 
 // Chuẩn bị và thực thi truy vấn
@@ -33,7 +33,7 @@ if (!empty($searchName)) {
     $stmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
 }
 if ($category != 'all') {
-    $stmt->bindValue(':category', "%$category%", PDO::PARAM_STR);
+    $stmt->bindValue(':category', $category, PDO::PARAM_STR);
 }
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -74,10 +74,14 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="logo">
                     <a href="search.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search here" />
-                    <a href="search.php" class="search-button">Search</a>
-                </div>
+                <<div class="search-bar">
+    <form action="search.php" method="GET">
+        <input type="text" name="name" placeholder="Search here" value="<?php echo htmlspecialchars($searchName); ?>" />
+        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>" />
+        <input type="hidden" name="price" value="<?php echo htmlspecialchars($priceRange); ?>" />
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
                 <div class="user-menu"></div>
             </div>
         </div>
@@ -109,12 +113,12 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="filter-category">
                         <select name="category" class="filter-select">
                             <option value="all" <?php echo ($category == 'all') ? 'selected' : ''; ?>>All Categories</option>
-                            <option value="gundam" <?php echo ($category == 'gundam') ? 'selected' : ''; ?>>Gundam</option>
-                            <option value="kamen_rider" <?php echo ($category == 'kamen_rider') ? 'selected' : ''; ?>>Kamen Rider</option>
-                            <option value="standee" <?php echo ($category == 'standee') ? 'selected' : ''; ?>>Standee</option>
-                            <option value="keychain" <?php echo ($category == 'keychain') ? 'selected' : ''; ?>>Keychain</option>
-                            <option value="plush" <?php echo ($category == 'plush') ? 'selected' : ''; ?>>Plush</option>
-                            <option value="figure" <?php echo ($category == 'figure') ? 'selected' : ''; ?>>Figure</option>
+                            <option value="Gundam" <?php echo ($category == 'Gundam') ? 'selected' : ''; ?>>Gundam</option>
+                            <option value="Kamen Rider" <?php echo ($category == 'Kamen Rider') ? 'selected' : ''; ?>>Kamen Rider</option>
+                            <option value="Standee" <?php echo ($category == 'Standee') ? 'selected' : ''; ?>>Standee</option>
+                            <option value="Keychain" <?php echo ($category == 'Keychain') ? 'selected' : ''; ?>>Keychain</option>
+                            <option value="Plush" <?php echo ($category == 'Plush') ? 'selected' : ''; ?>>Plush</option>
+                            <option value="Figure" <?php echo ($category == 'Figure') ? 'selected' : ''; ?>>Figure</option>
                         </select>
                     </div>
 
