@@ -73,29 +73,28 @@ header {
   color: #d10024;
 }
 
-/* Search Bar Styles */
+/* Search Bar Styles - Updated */
 .search-bar {
   display: flex;
   width: 100%;
   max-width: 550px;
   margin: 0 auto;
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar input,
-.search-bar .search-button {
-  border: none;
-  padding: 8px 10px;
-  font-size: 14px;
-  outline: none;
+.search-bar form {
+  display: flex;
+  width: 100%;
 }
 
-.search-bar input {
+.search-bar input[type="text"] {
   width: 75%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-right: none;
+  outline: none;
+  font-size: 14px;
   color: #333;
+  border-radius: 6px 0 0 6px;
 }
 
 .search-bar .search-button {
@@ -103,18 +102,18 @@ header {
   background-color: #d10024;
   color: #fff;
   text-align: center;
-  text-decoration: none;
-  border-radius: 0 8px 8px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
+  padding: 10px;
+  border: none;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  border-radius: 0 6px 6px 0;
 }
 
 .search-bar .search-button:hover {
   background-color: #a7001c;
 }
+
 
 /* Navigation Styles */
 nav {
@@ -503,9 +502,6 @@ footer {
   main .container {
     flex-direction: column;
   }
-
-
-
 }
 
 @media (max-width: 576px) {
@@ -520,12 +516,21 @@ footer {
     margin-bottom: 10px;
   }
 
-  .search-bar input,
+  .search-bar form {
+    flex-direction: column;
+  }
+
+  .search-bar input[type="text"],
   .search-bar .search-button {
     width: 100%;
+  }
+
+  .search-bar input[type="text"] {
+    border-right: 1px solid #ccc;
     margin-bottom: 10px;
   }
 }
+
 .filter-sidebar {
   width: 250px;
   padding: 15px;
@@ -537,7 +542,6 @@ footer {
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   max-height: 58.25vh;
   position: relative;
-  ;
 }
 
 .filter-sidebar:hover {
@@ -558,10 +562,12 @@ footer {
   font-size: 1rem;
   color: #333;
 }
+
 .search-results h1 {
   margin-left: 390px;
   font-size: 24px;
 }
+
 .filter-sidebar h3 {
   font-size: 18px;
   margin-bottom: 10px;
@@ -587,6 +593,7 @@ footer {
   margin-top: 10px;
   color: #666;
 }
+
 .filter-button {
   width: 100%;
   padding: 13.5px;
@@ -603,6 +610,7 @@ footer {
 .filter-button:hover {
   background-color: #ff1a3e;
 }
+
 .custom-range {
   display: flex;
   align-items: center;
@@ -621,9 +629,12 @@ footer {
   font-size: 14px;
   color: #333;
 }
-.filter-name{
+
+.filter-name {
   margin-bottom: 20px;
 }
-.filter-category{
-  margin-bottom:20px;
+
+.filter-category {
+  margin-bottom: 20px;
 }
+
