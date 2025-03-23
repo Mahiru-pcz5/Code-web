@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255) DEFAULT NULL,
+  `price` DECIMAL(10,2) DEFAULT 0.00,
+  `image` VARCHAR(255) DEFAULT NULL,
+  `category` VARCHAR(255) DEFAULT NULL,
+  `sold_count` INT DEFAULT 0,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `products` 
+(`id`, `name`, `description`, `price`, `image`, `category`, `sold_count`, `created_at`) 
+VALUES
+(1, 'Nendoroid Goodness Aqua', 'From KonoSuba', 59.99, 'AquaFigma.jpg', 'Figure', 70, '2025-03-21 09:27:18'),
+(2, 'Kamen Rider Kabuto', 'Kamen Rider Kick', 69.99, 'riderKick.jpg', 'Figure', 40, '2025-03-21 09:28:18'),
+(3, 'Cirno Fumo', 'Touhou Project', 99.99, 'cirno.jpg', 'Plushie', 50, '2025-03-21 09:29:18'),
+(4, 'GD Frame Vidar', 'Gundam Frame Vidar', 75.00, 'vidar.jpg', 'Figure', 75, '2025-03-21 09:30:18'),
+(5, 'Bocchi Hitori', 'Project Kessoku Band', 50.00, 'Bocchi.jpeg', 'Figure', 100, '2025-03-21 09:31:18'),
+(6, 'Godness Aqua', 'Konosuba Aqua', 125.00, 'Aqua.jpg', 'Figure', 50, '2025-03-21 09:32:18'),
+(7, 'Neco Arc', 'Tsukihime Meme', 150.00, 'necoarc.jpg', 'Figure', 30, '2025-03-21 09:33:18'),
+(8, 'Pearto', '???', 99999.00, 'pearto.jpg', 'Figure', 1, '2025-03-21 09:34:18'),
+(9, 'Kaito Shion', 'Vocaloid Kaito', 45.00, 'kaito.jpg', 'Figure', 20, '2025-03-21 09:35:18'),
+(10, 'Raiden Shogun', 'Genshin Impact', 120.00, 'raiden.jpg', 'Figure', 60, '2025-03-21 09:36:18');
