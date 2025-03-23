@@ -15,7 +15,6 @@ if ($conn->connect_error) {
 // Kiểm tra nếu form đã được gửi
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["product-name"];
-    $short_intro = $_POST["short-intro"];
     $description = $_POST["product-description"];
     $price = $_POST["product-price"];
     $category = $_POST["product-category"];
@@ -109,10 +108,6 @@ $conn->close();
                                 <div class="form-group">
                                     <label for="product-name">Product Name</label>
                                     <input type="text" id="product-name" name="product-name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="short-intro">Short Introduction</label>
-                                    <input type="text" id="short-intro" name="short-intro" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="product-description">Description</label>

@@ -1,3 +1,63 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "mahiru_shop";
+
+// Kết nối đến MySQL
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+// Kiểm tra xem có ID trên URL không
+if (isset($_GET['id'])) {
+    $user_id = $_GET['id'];
+
+    // Truy vấn lấy thông tin user
+    $sql = "SELECT * FROM users WHERE id = $user_id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+    } else {
+        echo "User not found!";
+        exit();
+    }
+} else {
+    echo "Invalid request!";
+    exit();
+}
+
+// Xử lý cập nhật thông tin người dùng
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
+    $email = $_POST["edit-email"];
+    $role = $_POST["edit-role"];
+    $status = $_POST["edit-status"];
+
+    $update_sql = "UPDATE users SET email='$email', role='$role', status='$status' WHERE id=$user_id";
+
+    if ($conn->query($update_sql) === TRUE) {
+        echo "<script>alert('User updated successfully!'); window.location.href='user-management.php';</script>";
+    } else {
+        echo "Error updating user: " . $conn->error;
+    }
+}
+
+// Xử lý xóa người dùng
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete"])) {
+    $delete_sql = "DELETE FROM users WHERE id=$user_id";
+
+    if ($conn->query($delete_sql) === TRUE) {
+        echo "<script>alert('User deleted successfully!'); window.location.href='user-management.php';</script>";
+    } else {
+        echo "Error deleting user: " . $conn->error;
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,64 +99,43 @@
                         <ul>
                             <li><a href="./user-management.php">User List</a></li>
                             <li><a href="./add-user.php">Add New User</a></li>
+                        </ul>
                     </div>
                     <div class="admin-content">
-                        <div id="edit-user-form" class="hidden">
-                            <h3>Edit User Information</h3>
-                            <form class="user-form">
-                                <div class="form-group">
-                                    <label for="edit-username">Username:</label>
-                                    <input type="text" id="edit-username" name="edit-username" value="Jane" readonly>
-                                </div>
+                        <h3>Edit User Information</h3>
+                        <form class="user-form" method="POST">
+                            <div class="form-group">
+                                <label for="edit-username">Username:</label>
+                                <input type="text" id="edit-username" name="edit-username" value="<?php echo $user['username']; ?>" readonly>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="edit-email">Email:</label>
-                                    <input type="email" id="edit-email" name="edit-email" value="JaneDoeIsmyWife@gmail.com">
-                                </div>
+                            <div class="form-group">
+                                <label for="edit-email">Email:</label>
+                                <input type="email" id="edit-email" name="edit-email" value="<?php echo $user['email']; ?>">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="edit-display-name">Display Name:</label>
-                                    <input type="text" id="edit-display-name" name="edit-display-name" value="Jane Doe">
-                                </div>
+                            <div class="form-group">
+                                <label for="edit-role">Role:</label>
+                                <select id="edit-role" name="edit-role">
+                                    <option value="user" <?php echo ($user['role'] == 'user') ? 'selected' : ''; ?>>User</option>
+                                    <option value="admin" <?php echo ($user['role'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+                                    <option value="manager" <?php echo ($user['role'] == 'manager') ? 'selected' : ''; ?>>Manager</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="edit-role">Role:</label>
-                                    <select id="edit-role" name="edit-role">
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="manager">Manager</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="edit-status">Status:</label>
+                                <select id="edit-status" name="edit-status">
+                                    <option value="active" <?php echo ($user['status'] == 'active') ? 'selected' : ''; ?>>Active</option>
+                                    <option value="inactive" <?php echo ($user['status'] == 'inactive') ? 'selected' : ''; ?>>Deactive</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="edit-status">Status:</label>
-                                    <select id="edit-status" name="edit-status">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Deactive</option>
-                                    </select>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" onclick="myFunction()" class="action-btn" style="background-color: green; color: white;">Change</button>
-                                    <script>
-                                        function myFunction() {
-                                  alert("Changing info successful");
-                                }
-                                     </script>
-                                    <a href="user-management.php" onclick="del()" class="action-btn" style="background-color: red; color: white;">Delete</a>
-
-                            <script>
-                              function del() {
-                                const confirmation = confirm("Do you want to delete this user");
-                                if (confirmation) {
-                                  alert("Deleted Succesfuly");
-                                } else {
-                                  alert("Deleted cancel");
-                                }
-                              }
-                            </script>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="form-actions">
+                                <button type="submit" name="update" class="action-btn" style="background-color: green; color: white;">Change</button>
+                                <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this user?');" class="action-btn" style="background-color: red; color: white;">Delete</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

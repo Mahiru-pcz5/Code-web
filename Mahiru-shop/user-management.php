@@ -75,8 +75,10 @@ if ($conn->connect_error) {
                             </thead>
                             <tbody>
                                 <?php
+                                // Cập nhật truy vấn để lấy address và phone
                                 $sql = "SELECT id, username, email, role, status FROM users";
                                 $result = $conn->query($sql);
+
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>";
@@ -85,19 +87,21 @@ if ($conn->connect_error) {
                                         echo "<td>" . $row['email'] . "</td>";
                                         echo "<td>" . $row['role'] . "</td>";
                                         echo "<td><span class='status " . ($row['status'] == 'Active' ? 'status-active' : 'status-inactive') . "'>" . $row['status'] . "</span></td>";
+
                                         echo "<td>
                                                 <label class='switch'>
                                                     <input type='checkbox' " . ($row['status'] == 'Deactive' ? 'checked' : '') . ">
                                                     <span class='slider'></span>
                                                 </label>
                                               </td>";
+
                                         echo "<td>
                                                 <a href='edit-user.php?id=" . $row['id'] . "' class='action-btn' style='background-color: green;border-color: green; color: white'>Edit</a>
                                               </td>";
                                         echo "</tr>";
                                     }
                                 } else {
-                                    echo "<tr><td colspan='7'>No users found</td></tr>";
+                                    echo "<tr><td colspan='9'>No users found</td></tr>";
                                 }
                                 ?>
                             </tbody>
