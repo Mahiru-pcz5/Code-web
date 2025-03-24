@@ -16,9 +16,11 @@ if ($conn->connect_error) {
 
 // Xử lý khi form gửi dữ liệu
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $username = $_POST["username"];    
     $password = $_POST["password"];
     $email = $_POST["email"];
+    $address = $_POST["address"];
+    $phone=$_POST["phone"];
     $role = $_POST["role"];
 
     // Kiểm tra email đã tồn tại chưa
@@ -34,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_stmt->close();
 
     // Thêm người dùng vào database
-    $stmt = $conn->prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $username, $password, $email, $role);
+    $stmt = $conn->prepare("INSERT INTO users (username, password, email,address,phone, role) VALUES (?,?,?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $username, $password, $email,$address,$phone, $role);
 
     if ($stmt->execute()) {
         echo "<script>alert('Thêm user thành công!'); window.location.href = 'user-management.php';</script>";
@@ -110,13 +112,19 @@ $conn->close();
                                 <label for="email">Email</label>
                                 <input type="email" name="email" >
                             </div>
-
+                            <div class="form-group">
+                                <label for="address">address</label>
+                                <input type="address" name="address" >
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="phone" name="phone" >
+                            </div>
                             <div class="form-group">
                                 <label for="role">Role</label>
                                 <select id="role" name="role" >
                                     <option value="user">User</option>
                                     <option value="admin">Admin</option>
-                                    <option value="manager">Manager</option>
                                 </select>
                             </div>
                             <div class="form-actions">
