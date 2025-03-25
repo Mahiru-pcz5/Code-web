@@ -34,8 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
     $email = $_POST["edit-email"];
     $role = $_POST["edit-role"];
     $status = $_POST["edit-status"];
+    $address = $_POST["edit-address"];
+    $phone = $_POST["edit-phone"];
 
-    $update_sql = "UPDATE users SET email='$email', role='$role', status='$status' WHERE id=$user_id";
+    $update_sql = "UPDATE users SET email='$email', role='$role', status='$status', address='$address', phone='$phone' WHERE id=$user_id";
 
     if ($conn->query($update_sql) === TRUE) {
         echo "<script>alert('User updated successfully!'); window.location.href='user-management.php';</script>";
@@ -112,6 +114,18 @@ $conn->close();
                             <div class="form-group">
                                 <label for="edit-email">Email:</label>
                                 <input type="email" id="edit-email" name="edit-email" value="<?php echo $user['email']; ?>">
+                            </div>
+
+                            <!-- Thêm khung nhập Address -->
+                            <div class="form-group">
+                                <label for="edit-address">Address:</label>
+                                <input type="text" id="edit-address" name="edit-address" value="<?php echo isset($user['address']) ? $user['address'] : ''; ?>">
+                            </div>
+
+                            <!-- Thêm khung nhập Phone -->
+                            <div class="form-group">
+                                <label for="edit-phone">Phone:</label>
+                                <input type="text" id="edit-phone" name="edit-phone" value="<?php echo isset($user['phone']) ? $user['phone'] : ''; ?>">
                             </div>
 
                             <div class="form-group">
