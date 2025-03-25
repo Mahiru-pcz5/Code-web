@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL COMMENT 'ID người đặt hàng',
+    total_price DECIMAL(10,2) NOT NULL COMMENT 'Tổng giá trị đơn hàng',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Ngày đặt hàng',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+INSERT INTO orders (user_id, total_price) VALUES
+(1, 300000),
+(2, 150000);
