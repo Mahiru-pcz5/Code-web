@@ -20,7 +20,7 @@ if (isset($_SESSION['user_name']) && isset($_SESSION['user_role'])) {
         'role'     => $_SESSION['user_role']
     ];
 }
-
+$category = 'Kamen Rider';
 $searchName = isset($_GET['name']) ? $_GET['name'] : '';
 $priceRange = isset($_GET['price']) ? $_GET['price'] : 150;
 
@@ -38,20 +38,26 @@ if (!empty($searchName)) {
     $countStmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
 }
 $countStmt->execute();
+$totalQuery = $conn->prepare("SELECT COUNT(*) FROM products WHERE category = :category");
+$totalQuery->bindValue(':category', $category);
+$totalQuery->execute();
 $totalProducts = $countStmt->fetchColumn();
 $totalPages = ceil($totalProducts / $limit);
 
-$sql = "SELECT * FROM products WHERE category = 'kamen_rider' AND price <= :price";
+$sql = "SELECT * FROM products WHERE category = :category AND price <= :price";
 if (!empty($searchName)) {
-    $sql .= " AND name LIKE :name";
+    $sql .= " AND name LIKE :name"; // Thêm điều kiện tìm kiếm
 }
-$sql .= " LIMIT :limit OFFSET :offset";
+$sql .= " LIMIT :limit OFFSET :offset"; // Thêm LIMIT và OFFSET
 
 $stmt = $conn->prepare($sql);
+$stmt->bindValue(':category', $category);
 $stmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
+
 if (!empty($searchName)) {
-    $stmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
+    $stmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR); // Chỉ liên kết nếu có tìm kiếm
 }
+
 $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
@@ -140,11 +146,22 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <div class="container">
-            <div class="filter-sidebar">
-                <form action="category_acc_kamen_rider.php" method="GET">
+        <div class="filter-sidebar">
+                <form action="category_account.php" method="GET">
                     <h3>Name:</h3>
                     <div class="filter-name">
                         <input type="text" name="name" placeholder="Enter product name" class="filter-input" value="<?php echo htmlspecialchars($searchName); ?>" />
+                    </div>
+                    <h3>Category:</h3>
+                    <div class="filter-category">
+                        <select name="category" class="filter-select">
+                            <option value="all" <?php echo ($category == 'all') ? 'selected' : ''; ?>>All Categories</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?php echo htmlspecialchars($cat['category']); ?>" <?php echo ($category == $cat['category']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $cat['category']))); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <h3>Price:</h3>
                     <div class="filter-price">
@@ -155,7 +172,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="range-label">150</div>
                         </div>
                     </div>
-                    <button type="submit" class="filter-button" style="margin-top: 10px;">Search</button>
+                    <button type="submit" class="filter-button"style="margin-top: 10px;">Search</button>
                 </form>
             </div>
             <section class="product-grid">
