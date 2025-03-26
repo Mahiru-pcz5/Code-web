@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// ========== KẾT NỐI CSDL ==========
 $host = 'localhost';
 $dbname = 'mahiru_shop';
 $dbUsername = 'root';
@@ -14,7 +13,6 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
-// ========== LẤY THÔNG TIN USER TỪ SESSION ==========
 $currentUser = null;
 if (isset($_SESSION['user_name']) && isset($_SESSION['user_role'])) {
     $currentUser = [
@@ -23,57 +21,36 @@ if (isset($_SESSION['user_name']) && isset($_SESSION['user_role'])) {
     ];
 }
 
-// ========== LẤY DANH MỤC TỪ BẢNG products ==========
-$categoryQuery = $conn->query("SELECT DISTINCT category FROM products");
-$categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
-
-// ========== XỬ LÝ TÌM KIẾM, LỌC SẢN PHẨM & PHÂN TRANG ==========
 $searchName = isset($_GET['name']) ? $_GET['name'] : '';
-$category   = isset($_GET['category']) ? $_GET['category'] : 'all';
 $priceRange = isset($_GET['price']) ? $_GET['price'] : 150;
 
-$limit = 9; // Số sản phẩm trên mỗi trang
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại, mặc định là 1
-$offset = ($page - 1) * $limit; // Tính toán offset
+$limit = 9;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
 
-// Lấy tổng số sản phẩm theo điều kiện lọc
-$countSql = "SELECT COUNT(*) FROM products WHERE price <= :price";
+$countSql = "SELECT COUNT(*) FROM products WHERE category = 'figure' AND price <= :price";
 if (!empty($searchName)) {
     $countSql .= " AND name LIKE :name";
-}
-if ($category != 'all') {
-    $countSql .= " AND category = :category";
 }
 $countStmt = $conn->prepare($countSql);
 $countStmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
 if (!empty($searchName)) {
     $countStmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
 }
-if ($category != 'all') {
-    $countStmt->bindValue(':category', $category, PDO::PARAM_STR);
-}
 $countStmt->execute();
 $totalProducts = $countStmt->fetchColumn();
-$totalPages = ceil($totalProducts / $limit); // Tính tổng số trang
+$totalPages = ceil($totalProducts / $limit);
 
-// Xây dựng câu truy vấn SQL
-$sql = "SELECT * FROM products WHERE price <= :price";
+$sql = "SELECT * FROM products WHERE category = 'figure' AND price <= :price";
 if (!empty($searchName)) {
     $sql .= " AND name LIKE :name";
 }
-if ($category != 'all') {
-    $sql .= " AND category = :category";
-}
-$sql .= " LIMIT :limit OFFSET :offset"; // Thêm LIMIT và OFFSET
+$sql .= " LIMIT :limit OFFSET :offset";
 
-// Chuẩn bị và thực thi truy vấn
 $stmt = $conn->prepare($sql);
 $stmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
 if (!empty($searchName)) {
     $stmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
-}
-if ($category != 'all') {
-    $stmt->bindValue(':category', $category, PDO::PARAM_STR);
 }
 $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -86,7 +63,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mahiru Shop</title>
+    <title>Mahiru Shop - Figure</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
@@ -136,7 +113,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="search-bar">
                     <form action="search.php" method="GET">
                         <input type="text" name="name" placeholder="Search here" value="<?php echo htmlspecialchars($searchName); ?>" />
-                        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>" />
+                        <input type="hidden" name="category" value="figure" />
                         <input type="hidden" name="price" value="<?php echo htmlspecialchars($priceRange); ?>" />
                         <button type="submit" class="search-button">Search</button>
                     </form>
@@ -164,21 +141,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <main>
         <div class="container">
             <div class="filter-sidebar">
-                <form action="index_account.php" method="GET">
+                <form action="category_acc_figure.php" method="GET">
                     <h3>Name:</h3>
                     <div class="filter-name">
                         <input type="text" name="name" placeholder="Enter product name" class="filter-input" value="<?php echo htmlspecialchars($searchName); ?>" />
-                    </div>
-                    <h3>Category:</h3>
-                    <div class="filter-category">
-                        <select name="category" class="filter-select">
-                            <option value="all" <?php echo ($category == 'all') ? 'selected' : ''; ?>>All Categories</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo htmlspecialchars($cat['category']); ?>" <?php echo ($category == $cat['category']) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $cat['category']))); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
                     </div>
                     <h3>Price:</h3>
                     <div class="filter-price">
@@ -189,7 +155,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="range-label">150</div>
                         </div>
                     </div>
-                    <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
+                    <button type="submit" class="filter-button" style="margin-top: 10px;">Search</button>
                 </form>
             </div>
             <section class="product-grid">
@@ -218,13 +184,13 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="pagination">
             <?php if ($page > 1): ?>
-                <a href="index_account.php?page=<?php echo $page - 1; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>">« Previous</a>
+                <a href="category_acc_figure.php?page=<?php echo $page - 1; ?>&name=<?php echo urlencode($searchName); ?>&price=<?php echo $priceRange; ?>">« Previous</a>
             <?php endif; ?>
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="index_account.php?page=<?php echo $i; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>" class="<?php echo ($i === $page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
+                <a href="category_acc_figure.php?page=<?php echo $i; ?>&name=<?php echo urlencode($searchName); ?>&price=<?php echo $priceRange; ?>" class="<?php echo ($i === $page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
             <?php endfor; ?>
             <?php if ($page < $totalPages): ?>
-                <a href="index_account.php?page=<?php echo $page + 1; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>">Next »</a>
+                <a href="category_acc_figure.php?page=<?php echo $page + 1; ?>&name=<?php echo urlencode($searchName); ?>&price=<?php echo $priceRange; ?>">Next »</a>
             <?php endif; ?>
         </div>
     </main>

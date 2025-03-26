@@ -1,3 +1,57 @@
+<?php
+session_start();
+
+// Kết nối cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "mahiru_shop";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+
+// 1. Tổng số sản phẩm
+$total_products_sql = "SELECT COUNT(*) as total FROM products";
+$total_products_result = $conn->query($total_products_sql);
+$total_products = $total_products_result->fetch_assoc()['total'];
+
+// 2. Tổng số đơn hàng
+$total_orders_sql = "SELECT COUNT(*) as total FROM orders";
+$total_orders_result = $conn->query($total_orders_sql);
+$total_orders = $total_orders_result->fetch_assoc()['total'];
+
+// 3. Tổng số khách hàng
+$total_customers_sql = "SELECT COUNT(*) as total FROM users";
+$total_customers_result = $conn->query($total_customers_sql);
+$total_customers = $total_customers_result->fetch_assoc()['total'];
+
+// 4. Doanh thu (chỉ tính đơn hàng có status = "completed")
+$revenue_sql = "SELECT SUM(total_price) as total FROM orders WHERE status = 'completed'";
+$revenue_result = $conn->query($revenue_sql);
+if ($revenue_result === false) {
+    die("Lỗi truy vấn doanh thu: " . $conn->error);
+}
+$revenue_row = $revenue_result->fetch_assoc();
+$revenue = $revenue_row['total'] ?? 0;
+
+// 5. Lấy danh sách đơn hàng gần đây (giới hạn 3 bản ghi)
+$recent_orders_sql = "SELECT o.id, o.name, o.created_at, o.total_price, o.status 
+                      FROM orders o 
+                      ORDER BY o.created_at DESC 
+                      LIMIT 3";
+$recent_orders_result = $conn->query($recent_orders_sql);
+
+// 6. Lấy danh sách sản phẩm bán chạy nhất (dựa trên sold_count, giới hạn 3 sản phẩm)
+$top_products_sql = "SELECT id, name, price, image, sold_count 
+                     FROM products 
+                     ORDER BY sold_count DESC 
+                     LIMIT 3";
+$top_products_result = $conn->query($top_products_sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,19 +93,22 @@
                         <div class="dashboard-stats">
                             <div class="stat-card">
                                 <h3>Total Products</h3>
-                                <p class="stat-number">1,234</p>
+                                <p class="stat-number"><?php echo number_format($total_products); ?></p>
                             </div>
                             <div class="stat-card">
                                 <h3>Total Orders</h3>
-                                <p class="stat-number">567</p>
+                                <p class="stat-number"><?php echo number_format($total_orders); ?></p>
                             </div>
                             <div class="stat-card">
                                 <h3>Total Customers</h3>
-                                <p class="stat-number">890</p>
+                                <p class="stat-number"><?php echo number_format($total_customers); ?></p>
                             </div>
                             <div class="stat-card">
                                 <h3>Revenue</h3>
-                                <p class="stat-number">$11,250</p>
+                                <p class="stat-number">$<?php echo number_format($revenue, 2); ?></p>
+                                <?php if ($revenue == 0): ?>
+                                    <p style="color: red; font-size: 0.9em;">No completed orders yet.</p>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -68,56 +125,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#12345</td>
-                                    <td>John Smith</td>
-                                    <td>2024-03-15</td>
-                                    <td>$99.99</td>
-                                    <td>Processing</td>
-                                    <td><a href="detail-order.php" class="action-btn">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#12346</td>
-                                    <td>Jane Doe</td>
-                                    <td>2024-03-14</td>
-                                    <td>$149.99</td>
-                                    <td>Shipped</td>
-                                    <td><a href="detail-order.php" class="action-btn">View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>#12347</td>
-                                    <td>Bob Johnson</td>
-                                    <td>2024-03-13</td>
-                                    <td>$79.99</td>
-                                    <td>Delivered</td>
-                                    <td><a href="detail-order.php" class="action-btn">View</a></td>
-                                </tr>
+                                <?php if ($recent_orders_result->num_rows > 0): ?>
+                                    <?php while ($order = $recent_orders_result->fetch_assoc()): ?>
+                                        <tr>
+                                            <td>#<?php echo $order['id']; ?></td>
+                                            <td><?php echo htmlspecialchars($order['name']); ?></td>
+                                            <td><?php echo date('Y-m-d', strtotime($order['created_at'])); ?></td>
+                                            <td>$<?php echo number_format($order['total_price'], 2); ?></td>
+                                            <td><?php echo ucfirst($order['status']); ?></td>
+                                            <td><a href="order-details.php?order_id=<?php echo $order['id']; ?>" class="action-btn">View</a></td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6">No recent orders found.</td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
 
                         <h2>Top Selling Products</h2>
                         <div class="product-grid">
-                            <div class="product-card">
-                                <img src="./img/Bocchi.jpeg" alt="Bocchi the rock">
-                                <h3>Gotou Hitori</h3>
-                                <p class="price">$59.99</p>
-                                <p class="sales">Sales: 100</p>
-                                <a class="action-btn" href="edit-product.php">Edit</a>
-                            </div>
-                            <div class="product-card">
-                                <img src="./img/Cirno.jpg" alt="Fumo plusie">
-                                <h3>Fumo Cirno</h3>
-                                <p class="price">$54.99</p>
-                                <p class="sales">Sales: 85</p>
-                                <a class="action-btn" href="edit-product.php">Edit</a>
-                            </div>
-                            <div class="product-card">
-                                <img src="./img/Vidar.jpg" alt="Gundam Vidar">
-                                <h3>Gundam Frame Vidar</h3>
-                                <p class="price">$64.99</p>
-                                <p class="sales">Sales: 75</p>
-                                <a class="action-btn" href="edit-product.php">Edit</a>
-                            </div>
+                            <?php if ($top_products_result->num_rows > 0): ?>
+                                <?php while ($product = $top_products_result->fetch_assoc()): ?>
+                                    <div class="product-card">
+                                        <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                                        <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                                        <p class="price">$<?php echo number_format($product['price'], 2); ?></p>
+                                        <p class="sales">Sales: <?php echo $product['sold_count']; ?></p>
+                                        <a class="action-btn" href="edit-product.php?id=<?php echo $product['id']; ?>">Edit</a>
+                                    </div>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p>No top selling products found.</p>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -126,7 +167,7 @@
 
         <footer>
             <div class="container">
-                <p>&copy;Mahiru Shop. We are pleased to serve you.</p>
+                <p>© Mahiru Shop. We are pleased to serve you.</p>
             </div>
         </footer>
     </div>
@@ -135,3 +176,7 @@
     </script>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
