@@ -134,7 +134,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index_account.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
                 <div class="search-bar">
-                    <form action="search.php" method="GET">
+                    <form action="search_account.php" method="GET">
                         <input type="text" name="name" placeholder="Search here" value="<?php echo htmlspecialchars($searchName); ?>" />
                         <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>" />
                         <input type="hidden" name="price" value="<?php echo htmlspecialchars($priceRange); ?>" />
