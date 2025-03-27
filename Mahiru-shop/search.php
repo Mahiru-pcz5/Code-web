@@ -17,7 +17,32 @@ $searchName = isset($_GET['name']) ? $_GET['name'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 $priceRange = isset($_GET['price']) ? $_GET['price'] : 150;
 
-// Xây dựng câu truy vấn SQL
+// Phân trang
+$limit = 9; // Số sản phẩm trên mỗi trang
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại, mặc định là 1
+$offset = ($page - 1) * $limit; // Tính toán offset
+
+// Lấy tổng số sản phẩm theo điều kiện lọc
+$countSql = "SELECT COUNT(*) FROM products WHERE price <= :price";
+if (!empty($searchName)) {
+    $countSql .= " AND name LIKE :name";
+}
+if ($category != 'all') {
+    $countSql .= " AND category = :category";
+}
+$countStmt = $conn->prepare($countSql);
+$countStmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
+if (!empty($searchName)) {
+    $countStmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
+}
+if ($category != 'all') {
+    $countStmt->bindValue(':category', $category, PDO::PARAM_STR);
+}
+$countStmt->execute();
+$totalProducts = $countStmt->fetchColumn();
+$totalPages = ceil($totalProducts / $limit); // Tính tổng số trang
+
+// Xây dựng câu truy vấn SQL với phân trang
 $sql = "SELECT * FROM products WHERE price <= :price";
 if (!empty($searchName)) {
     $sql .= " AND name LIKE :name";
@@ -25,6 +50,7 @@ if (!empty($searchName)) {
 if ($category != 'all') {
     $sql .= " AND category = :category";
 }
+$sql .= " LIMIT :limit OFFSET :offset"; // Thêm LIMIT và OFFSET
 
 // Chuẩn bị và thực thi truy vấn
 $stmt = $conn->prepare($sql);
@@ -35,6 +61,8 @@ if (!empty($searchName)) {
 if ($category != 'all') {
     $stmt->bindValue(':category', $category, PDO::PARAM_STR);
 }
+$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -75,13 +103,13 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
                 <div class="search-bar">
-    <form action="search.php" method="GET">
-        <input type="text" name="name" placeholder="Search here" value="<?php echo htmlspecialchars($searchName); ?>" />
-        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>" />
-        <input type="hidden" name="price" value="<?php echo htmlspecialchars($priceRange); ?>" />
-        <button type="submit" class="search-button">Search</button>
-    </form>
-</div>
+                    <form action="search.php" method="GET">
+                        <input type="text" name="name" placeholder="Search here" value="<?php echo htmlspecialchars($searchName); ?>" />
+                        <input type="hidden" name="category" value="<?php echo htmlspecialchars($category); ?>" />
+                        <input type="hidden" name="price" value="<?php echo htmlspecialchars($priceRange); ?>" />
+                        <button type="submit" class="search-button">Search</button>
+                    </form>
+                </div>
                 <div class="user-menu"></div>
             </div>
         </div>
@@ -177,13 +205,15 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </section>
         </div>
         <div class="pagination">
-            <a href="search.php">&laquo;</a>
-            <a href="search.php" class="active">1</a>
-            <a href="search.php">2</a>
-            <a href="search.php">3</a>
-            <a href="search.php">4</a>
-            <a href="search.php">5</a>
-            <a href="search.php">&raquo;</a>
+            <?php if ($page > 1): ?>
+                <a href="search.php?page=<?php echo $page - 1; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>">« Previous</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="search.php?page=<?php echo $i; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>" class="<?php echo ($i === $page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
+            <?php endfor; ?>
+            <?php if ($page < $totalPages): ?>
+                <a href="search.php?page=<?php echo $page + 1; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>">Next »</a>
+            <?php endif; ?>
         </div>
     </main>
     <footer>
