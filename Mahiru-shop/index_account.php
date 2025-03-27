@@ -10,38 +10,26 @@ $dbPassword = '';
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Insert the product if it doesn't exist (run once or on setup)
-    $checkStmt = $conn->prepare("SELECT COUNT(*) FROM products WHERE id = 1");
-    $checkStmt->execute();
-    if ($checkStmt->fetchColumn() == 0) {
-        $insertSql = "INSERT INTO products (id, name, description, price, image, category, sold_count, created_at) VALUES
-                      (1, 'Stellaron Hunter SAM', 'Honkai Star Rail', 199.98, 'uploads/SAM.webp', 'Figure', 50, '2025-03-21 09:28:18')";
-        $conn->exec($insertSql);
-    }
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
 
 // ========== LẤY THÔNG TIN USER TỪ SESSION ==========
-$currentUser = null;
-if (isset($_SESSION['user_name']) && isset($_SESSION['user_role'])) {
-    $currentUser = [
-        'username' => $_SESSION['user_name'],
-        'role'     => $_SESSION['user_role']
-    ];
-}
+$currentUser = isset($_SESSION['user_name']) ? [
+    'username' => $_SESSION['user_name'],
+    'role'     => $_SESSION['user_role'] ?? 'user'
+] : null;
 
 // ========== LẤY DANH MỤC TỪ BẢNG products ==========
 $categoryQuery = $conn->query("SELECT DISTINCT category FROM products");
 $categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
 
 // ========== XỬ LÝ TÌM KIẾM, LỌC SẢN PHẨM & PHÂN TRANG ==========
-$searchName = isset($_GET['name']) ? $_GET['name'] : '';
-$category   = isset($_GET['category']) ? $_GET['category'] : 'all';
-$priceRange = isset($_GET['price']) ? $_GET['price'] :'all';
+$searchName = $_GET['name'] ?? '';
+$category   = $_GET['category'] ?? 'all';
+$priceRange = $_GET['price'] ?? 15000;
 
-$limit = 9; // Số sản phẩm trên mỗi trang
+$limit = 9;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
@@ -50,7 +38,7 @@ $countSql = "SELECT COUNT(*) FROM products WHERE price <= :price";
 if (!empty($searchName)) {
     $countSql .= " AND name LIKE :name";
 }
-if ($category != 'all') {
+if ($category !== 'all') {
     $countSql .= " AND category = :category";
 }
 $countStmt = $conn->prepare($countSql);
@@ -58,30 +46,29 @@ $countStmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
 if (!empty($searchName)) {
     $countStmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
 }
-if ($category != 'all') {
+if ($category !== 'all') {
     $countStmt->bindValue(':category', $category, PDO::PARAM_STR);
 }
 $countStmt->execute();
 $totalProducts = $countStmt->fetchColumn();
 $totalPages = ceil($totalProducts / $limit);
 
-// Xây dựng câu truy vấn SQL
+// Truy vấn sản phẩm theo điều kiện lọc
 $sql = "SELECT * FROM products WHERE price <= :price";
 if (!empty($searchName)) {
     $sql .= " AND name LIKE :name";
 }
-if ($category != 'all') {
+if ($category !== 'all') {
     $sql .= " AND category = :category";
 }
 $sql .= " LIMIT :limit OFFSET :offset";
 
-// Chuẩn bị và thực thi truy vấn
 $stmt = $conn->prepare($sql);
 $stmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
 if (!empty($searchName)) {
     $stmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
 }
-if ($category != 'all') {
+if ($category !== 'all') {
     $stmt->bindValue(':category', $category, PDO::PARAM_STR);
 }
 $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -89,7 +76,6 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,13 +144,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <nav>
             <div class="container">
                 <ul>
-                    <li><a href="index_account.php">Home</a></li>
-                    <li><a href="category_acc_gundam.php">Gundam</a></li>
-                    <li><a href="category_acc_kamen_rider.php">Kamen Rider</a></li>
-                    <li><a href="category_acc_standee.php">Standee</a></li>
-                    <li><a href="category_acc_keychain.php">Keychain</a></li>
-                    <li><a href="category_acc_plush.php">Plush</a></li>
-                    <li><a href="category_acc_figure.php">Figure</a></li>
+                <li><a href="index_account.php">Home</a></li>
+            <?php foreach ($categories as $cat): ?>
+                <li><a href="index_account.php?category=<?= urlencode($cat['category']) ?>"> <?= htmlspecialchars($cat['category']) ?> </a></li>
+            <?php endforeach; ?>
                 </ul>
             </div>
         </nav>
@@ -172,35 +155,51 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <div class="container">
-            <div class="filter-sidebar">
-                <form action="index_account.php" method="GET">
-                    <h3>Name:</h3>
-                    <div class="filter-name">
-                        <input type="text" name="name" placeholder="Enter product name" class="filter-input" value="<?php echo htmlspecialchars($searchName); ?>" />
-                    </div>
-                    <h3>Category:</h3>
-                    <div class="filter-category">
-                        <select name="category" class="filter-select">
-                            <option value="all" <?php echo ($category == 'all') ? 'selected' : ''; ?>>All Categories</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo htmlspecialchars($cat['category']); ?>" <?php echo ($category == $cat['category']) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $cat['category']))); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <h3>Price:</h3>
-                    <div class="filter-price">
-                        <label for="priceRange">Range:</label>
-                        <div class="range-container custom-range">
-                            <div class="range-label">0</div>
-                            <input type="range" id="priceRange" name="price" min="0" max="200" value="<?php echo $priceRange; ?>" class="filter-input" />
-                            <div class="range-label">200</div>
-                        </div>
-                    </div>
-                    <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
-                </form>
+        <div class="filter-sidebar">
+    <form action="index_account.php" method="GET">
+        <h3>Name:</h3>
+        <div class="filter-name">
+            <input type="text" name="name" placeholder="Enter product name" class="filter-input" value="">
+        </div>
+        <h3>Category:</h3>
+        <div class="filter-category">
+            <select name="category" class="filter-select">
+                <option value="all" selected="">All Categories</option>
+                <option value="Figure">Figure</option>
+                <option value="Kamen Rider">Kamen Rider</option>
+                <option value="Plush">Plush</option>
+                <option value="Gundam">Gundam</option>
+                <option value="Standee">Standee</option>
+                <option value="Keychain">Keychain</option>
+            </select>
+        </div>
+        <h3>Price:</h3>
+        <div class="filter-price">
+            <label for="priceRange">Range:</label>
+            <div class="range-container custom-range">
+                <div class="range-label">0</div>
+                <input type="range" id="priceRange" name="price" min="0" max="300" value="300" class="filter-input">
+                <div class="range-label">300</div>
             </div>
+            <!-- Added element to display the current value -->
+            <div class="price-value" style="margin-top: 5px;">
+                Current Price: $<span id="priceOutput"></span>
+            </div>
+        </div>
+        <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
+    </form>
+</div>
+
+<!-- Add this JavaScript at the bottom of your page, before </body> -->
+<script>
+    const priceRange = document.getElementById('priceRange');
+    const priceOutput = document.getElementById('priceOutput');
+
+    // Update the displayed value when the slider is moved
+    priceRange.addEventListener('input', function() {
+        priceOutput.textContent = priceRange.value;
+    });
+</script>
             <section class="product-grid">
                 <div class="product-categories">
                     <?php if (count($products) > 0): ?>
