@@ -10,6 +10,15 @@ $dbPassword = '';
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Insert the product if it doesn't exist (run once or on setup)
+    $checkStmt = $conn->prepare("SELECT COUNT(*) FROM products WHERE id = 1");
+    $checkStmt->execute();
+    if ($checkStmt->fetchColumn() == 0) {
+        $insertSql = "INSERT INTO products (id, name, description, price, image, category, sold_count, created_at) VALUES
+                      (1, 'Stellaron Hunter SAM', 'Honkai Star Rail', 199.98, 'uploads/SAM.webp', 'Figure', 50, '2025-03-21 09:28:18')";
+        $conn->exec($insertSql);
+    }
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
@@ -30,11 +39,11 @@ $categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
 // ========== XỬ LÝ TÌM KIẾM, LỌC SẢN PHẨM & PHÂN TRANG ==========
 $searchName = isset($_GET['name']) ? $_GET['name'] : '';
 $category   = isset($_GET['category']) ? $_GET['category'] : 'all';
-$priceRange = isset($_GET['price']) ? $_GET['price'] : 150;
+$priceRange = isset($_GET['price']) ? $_GET['price'] :'all';
 
 $limit = 9; // Số sản phẩm trên mỗi trang
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại, mặc định là 1
-$offset = ($page - 1) * $limit; // Tính toán offset
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
 
 // Lấy tổng số sản phẩm theo điều kiện lọc
 $countSql = "SELECT COUNT(*) FROM products WHERE price <= :price";
@@ -54,7 +63,7 @@ if ($category != 'all') {
 }
 $countStmt->execute();
 $totalProducts = $countStmt->fetchColumn();
-$totalPages = ceil($totalProducts / $limit); // Tính tổng số trang
+$totalPages = ceil($totalProducts / $limit);
 
 // Xây dựng câu truy vấn SQL
 $sql = "SELECT * FROM products WHERE price <= :price";
@@ -64,7 +73,7 @@ if (!empty($searchName)) {
 if ($category != 'all') {
     $sql .= " AND category = :category";
 }
-$sql .= " LIMIT :limit OFFSET :offset"; // Thêm LIMIT và OFFSET
+$sql .= " LIMIT :limit OFFSET :offset";
 
 // Chuẩn bị và thực thi truy vấn
 $stmt = $conn->prepare($sql);
@@ -185,8 +194,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <label for="priceRange">Range:</label>
                         <div class="range-container custom-range">
                             <div class="range-label">0</div>
-                            <input type="range" id="priceRange" name="price" min="0" max="150" value="<?php echo $priceRange; ?>" class="filter-input" />
-                            <div class="range-label">150</div>
+                            <input type="range" id="priceRange" name="price" min="0" max="200" value="<?php echo $priceRange; ?>" class="filter-input" />
+                            <div class="range-label">200</div>
                         </div>
                     </div>
                     <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
@@ -211,7 +220,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>No products found.</p>
+                        <p>No products found. Check your filters or database.</p>
                     <?php endif; ?>
                 </div>
             </section>
