@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Phần kết nối cơ sở dữ liệu
 $host = 'localhost'; // Tên máy chủ MySQL
 $dbname = 'mahiru_shop'; // Tên cơ sở dữ liệu
@@ -12,12 +14,50 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
+// ========== LẤY THÔNG TIN USER TỪ SESSION ==========
+$currentUser = null;
+if (isset($_SESSION['user_name']) && isset($_SESSION['user_role'])) {
+    $currentUser = [
+        'username' => $_SESSION['user_name'],
+        'role'     => $_SESSION['user_role']
+    ];
+}
+
+// ========== LẤY DANH MỤC TỪ BẢNG products ==========
+$categoryQuery = $conn->query("SELECT DISTINCT category FROM products");
+$categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
+
 // Xử lý tìm kiếm và lọc
 $searchName = isset($_GET['name']) ? $_GET['name'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : 'all';
 $priceRange = isset($_GET['price']) ? $_GET['price'] : 150;
 
-// Xây dựng câu truy vấn SQL
+// Phân trang
+$limit = 9; // Số sản phẩm trên mỗi trang
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Trang hiện tại, mặc định là 1
+$offset = ($page - 1) * $limit; // Tính toán offset
+
+// Lấy tổng số sản phẩm theo điều kiện lọc
+$countSql = "SELECT COUNT(*) FROM products WHERE price <= :price";
+if (!empty($searchName)) {
+    $countSql .= " AND name LIKE :name";
+}
+if ($category != 'all') {
+    $countSql .= " AND category = :category";
+}
+$countStmt = $conn->prepare($countSql);
+$countStmt->bindValue(':price', $priceRange, PDO::PARAM_INT);
+if (!empty($searchName)) {
+    $countStmt->bindValue(':name', "%$searchName%", PDO::PARAM_STR);
+}
+if ($category != 'all') {
+    $countStmt->bindValue(':category', $category, PDO::PARAM_STR);
+}
+$countStmt->execute();
+$totalProducts = $countStmt->fetchColumn();
+$totalPages = ceil($totalProducts / $limit); // Tính tổng số trang
+
+// Xây dựng câu truy vấn SQL với phân trang
 $sql = "SELECT * FROM products WHERE price <= :price";
 if (!empty($searchName)) {
     $sql .= " AND name LIKE :name";
@@ -25,6 +65,7 @@ if (!empty($searchName)) {
 if ($category != 'all') {
     $sql .= " AND category = :category";
 }
+$sql .= " LIMIT :limit OFFSET :offset"; // Thêm LIMIT và OFFSET
 
 // Chuẩn bị và thực thi truy vấn
 $stmt = $conn->prepare($sql);
@@ -35,13 +76,10 @@ if (!empty($searchName)) {
 if ($category != 'all') {
     $stmt->bindValue(':category', $category, PDO::PARAM_STR);
 }
+$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Giả sử người dùng đã đăng nhập và có thông tin trong session
-session_start();
-$loggedIn = isset($_SESSION['username']);
-$username = $loggedIn ? $_SESSION['username'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -63,22 +101,29 @@ $username = $loggedIn ? $_SESSION['username'] : '';
                     <span><i class="fas fa-map-marker-alt"></i>1104 Wall Street</span>
                 </div>
                 <div class="user-actions">
-                    <?php if ($loggedIn) : ?>
-                        <a class="login-link">
-                            <i class="fas fa-user"></i>
-                            <span class="name"><?php echo htmlspecialchars($username); ?></span>
-                        </a>
+                    <?php if ($currentUser): ?>
+                        <i class="fas fa-user"></i>
+                        <?php if (strtolower($currentUser['role']) === 'admin'): ?>
+                            <span class="name">ADMIN</span>
+                        <?php else: ?>
+                            <span class="name"><?php echo htmlspecialchars($currentUser['username']); ?></span>
+                        <?php endif; ?>
                         <div class="login-dropdown">
-                            <a href="logout.php" class="login-option">Logout</a>
+                            <?php if (strtolower($currentUser['role']) === 'admin'): ?>
+                                <a href="edit.php" class="login-option">Edit</a>
+                            <?php else: ?>
+                                <a href="order_history.php" class="login-option">Order history</a>
+                            <?php endif; ?>
+                            <a href="index.php" class="login-option">Log out</a>
                         </div>
-                    <?php else : ?>
+                    <?php else: ?>
                         <a class="login-link">
                             <i class="fas fa-user"></i>
                             <span class="name">Login/Sign up</span>
                         </a>
                         <div class="login-dropdown">
-                            <a href="login.html" class="login-option">Login</a>
-                            <a href="sign_up.html" class="login-option">Sign up</a>
+                            <a href="login.php" class="login-option">Login</a>
+                            <a href="sign_up.php" class="login-option">Sign up</a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -98,20 +143,20 @@ $username = $loggedIn ? $_SESSION['username'] : '';
                     </form>
                 </div>
                 <div class="user-menu">
-                    <a href="cart.html" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                    <a href="cart.php" class="icon"><i class="fas fa-shopping-cart"></i></a>
                 </div>
             </div>
         </div>
         <nav>
             <div class="container">
                 <ul>
-                    <li><a href="index_account.html">Home</a></li>
-                    <li><a href="category_account.html">Gundam</a></li>
-                    <li><a href="category_account.html">Kamen Rider</a></li>
-                    <li><a href="category_account.html">Standee</a></li>
-                    <li><a href="category_account.html">Keychain</a></li>
-                    <li><a href="category_account.html">Plush</a></li>
-                    <li><a href="category_account.html">Figure</a></li>
+                    <li><a href="index_account.php">Home</a></li>
+                    <li><a href="category_acc_gundam.php">Gundam</a></li>
+                    <li><a href="category_acc_kamen_rider.php">Kamen Rider</a></li>
+                    <li><a href="category_acc_standee.php">Standee</a></li>
+                    <li><a href="category_acc_keychain.php">Keychain</a></li>
+                    <li><a href="category_acc_plush.php">Plush</a></li>
+                    <li><a href="category_acc_figure.php">Figure</a></li>
                 </ul>
             </div>
         </nav>
@@ -130,12 +175,11 @@ $username = $loggedIn ? $_SESSION['username'] : '';
                     <div class="filter-category">
                         <select name="category" class="filter-select">
                             <option value="all" <?php echo ($category == 'all') ? 'selected' : ''; ?>>All Categories</option>
-                            <option value="Gundam" <?php echo ($category == 'Gundam') ? 'selected' : ''; ?>>Gundam</option>
-                            <option value="Kamen Rider" <?php echo ($category == 'Kamen Rider') ? 'selected' : ''; ?>>Kamen Rider</option>
-                            <option value="Standee" <?php echo ($category == 'Standee') ? 'selected' : ''; ?>>Standee</option>
-                            <option value="Keychain" <?php echo ($category == 'Keychain') ? 'selected' : ''; ?>>Keychain</option>
-                            <option value="Plush" <?php echo ($category == 'Plush') ? 'selected' : ''; ?>>Plush</option>
-                            <option value="Figure" <?php echo ($category == 'Figure') ? 'selected' : ''; ?>>Figure</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?php echo htmlspecialchars($cat['category']); ?>" <?php echo ($category == $cat['category']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $cat['category']))); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -194,13 +238,15 @@ $username = $loggedIn ? $_SESSION['username'] : '';
             </section>
         </div>
         <div class="pagination">
-            <a href="search_account.php">&laquo;</a>
-            <a href="search_account.php" class="active">1</a>
-            <a href="search_account.php">2</a>
-            <a href="search_account.php">3</a>
-            <a href="search_account.php">4</a>
-            <a href="search_account.php">5</a>
-            <a href="search_account.php">&raquo;</a>
+            <?php if ($page > 1): ?>
+                <a href="search_account.php?page=<?php echo $page - 1; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>">« Previous</a>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="search_account.php?page=<?php echo $i; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>" class="<?php echo ($i === $page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
+            <?php endfor; ?>
+            <?php if ($page < $totalPages): ?>
+                <a href="search_account.php?page=<?php echo $page + 1; ?>&name=<?php echo urlencode($searchName); ?>&category=<?php echo urlencode($category); ?>&price=<?php echo $priceRange; ?>">Next »</a>
+            <?php endif; ?>
         </div>
     </main>
     <footer>
