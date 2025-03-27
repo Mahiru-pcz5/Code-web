@@ -27,7 +27,7 @@ $categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
 // ========== XỬ LÝ TÌM KIẾM, LỌC SẢN PHẨM & PHÂN TRANG ==========
 $searchName = $_GET['name'] ?? '';
 $category   = $_GET['category'] ?? 'all';
-$priceRange = $_GET['price'] ?? 15000;
+$priceRange = $_GET['price'] ?? '99999999';
 
 $limit = 9;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -175,17 +175,18 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <h3>Price:</h3>
         <div class="filter-price">
-            <label for="priceRange">Range:</label>
-            <div class="range-container custom-range">
-                <div class="range-label">0</div>
-                <input type="range" id="priceRange" name="price" min="0" max="300" value="300" class="filter-input">
-                <div class="range-label">300</div>
-            </div>
-            <!-- Added element to display the current value -->
-            <div class="price-value" style="margin-top: 5px;">
-                Current Price: $<span id="priceOutput"></span>
-            </div>
-        </div>
+    <label for="priceRange">Range:</label>
+    <div class="range-container custom-range">
+        <div class="range-label">0</div>
+        <input type="range" id="priceRange" name="price" min="0" max="300"
+            value="<?php echo isset($_GET['price']) ? htmlspecialchars($_GET['price']) : '300'; ?>" class="filter-input">
+        <div class="range-label">300</div>
+    </div>
+    <!-- Hiển thị giá trị hiện tại -->
+    <div class="price-value" style="margin-top: 5px;">
+        Current Price: $<span id="priceOutput"><?php echo isset($_GET['price']) ? htmlspecialchars($_GET['price']) : '300'; ?></span>
+    </div>
+</div>
         <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
     </form>
 </div>
@@ -195,7 +196,10 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     const priceRange = document.getElementById('priceRange');
     const priceOutput = document.getElementById('priceOutput');
 
-    // Update the displayed value when the slider is moved
+    // Gán giá trị ban đầu từ input range
+    priceOutput.textContent = priceRange.value;
+
+    // Cập nhật giá trị khi kéo thanh trượt
     priceRange.addEventListener('input', function() {
         priceOutput.textContent = priceRange.value;
     });
