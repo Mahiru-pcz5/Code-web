@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = trim($_POST['password']);
 
     if (!empty($email) && !empty($pass)) {
-        // Sửa tên bảng từ accounts thành users
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -25,7 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($row = $result->fetch_assoc()) {
             if (password_verify($pass, $row['password'])) {
-                // Đăng nhập thành công: lưu các thông tin cần thiết vào session
+                // Xóa toàn bộ session cũ trước khi thiết lập session mới
+                session_unset();
+
+                // Thiết lập session cho user mới
+                $_SESSION['user_id'] = $row['id'];
                 $_SESSION['user_name'] = $row['username'];
                 $_SESSION['user_email'] = $row['email'];
                 $_SESSION['user_address'] = $row['address'];
