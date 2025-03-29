@@ -1,43 +1,53 @@
 <?php
 session_start();
 
+// Kiểm tra đăng nhập
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Kết nối cơ sở dữ liệu
+$host = 'localhost';
+$dbname = 'mahiru_shop';
+$dbUsername = 'root';
+$dbPassword = '';
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+
+// Lấy user_id từ session
+$userId = $_SESSION['user_id'];
+
+// Lấy dữ liệu giỏ hàng từ cơ sở dữ liệu
+$stmt = $conn->prepare("
+    SELECT c.product_id, c.quantity, p.name, p.price, p.image 
+    FROM cart c 
+    JOIN products p ON c.product_id = p.id 
+    WHERE c.user_id = :user_id
+");
+$stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+$stmt->execute();
+$cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // Kiểm tra giỏ hàng
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+if (empty($cartItems)) {
     header("Location: cart.php");
     exit();
 }
 
-// Khởi tạo biến tổng tiền và phí vận chuyển
+// Tính tổng tiền và phí vận chuyển
 $total = 0;
 $shipping = 5.00;
-
-// Kết nối cơ sở dữ liệu
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "mahiru_shop";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
+foreach ($cartItems as $item) {
+    $total += $item['price'] * $item['quantity'];
 }
-
-// Lấy dữ liệu sản phẩm từ giỏ hàng
-$products = [];
-if (!empty($_SESSION['cart'])) {
-    $ids = implode(',', array_keys($_SESSION['cart']));
-    $stmt = $conn->prepare("SELECT * FROM products WHERE id IN ($ids)");
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    while ($row = $result->fetch_assoc()) {
-        $products[$row['id']] = $row;
-    }
-    $stmt->close();
-}
-$conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +55,7 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Mahiru Shop</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/categories.css">
     <link rel="stylesheet" href="./css/checkout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -57,8 +68,45 @@ $conn->close();
                     <span><i class="fas fa-envelope"></i> mahiru@gmail.com</span>
                     <span><i class="fas fa-map-marker-alt"></i> 1104 Wall Street</span>
                 </div>
+                <div class="user-actions">
+                    <i class="fas fa-user"></i>
+                    <span class="name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                    <div class="login-dropdown">
+                        <a href="order_history.php" class="login-option">Order History</a>
+                        <a href="index.php" class="login-option">Log out</a>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <a href="index_account.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
+                </div>
+                <div class="search-bar">
+                    <form action="search_account.php" method="GET">
+                        <input type="text" name="name" placeholder="Search here" />
+                        <button type="submit" class="search-button">Search</button>
+                    </form>
+                </div>
+                <div class="user-menu">
+                    <a href="cart.php" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
+        <nav class="category-nav">
+            <div class="container">
+                <ul class="category-list">
+                    <li><a href="index_account.php">Home</a></li>
+                    <li><a href="category_acc_gundam.php">Gundam</a></li>
+                    <li><a href="category_acc_kamen_rider.php">Kamen Rider</a></li>
+                    <li><a href="category_acc_standee.php">Standee</a></li>
+                    <li><a href="category_acc_keychain.php">Keychain</a></li>
+                    <li><a href="category_acc_plush.php">Plush</a></li>
+                    <li><a href="category_acc_figure.php">Figure</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
     <main>
         <div class="container">
@@ -86,18 +134,18 @@ $conn->close();
                 </div>
                 <div class="order-summary">
                     <h2>Order Summary</h2>
-                    <?php if (!empty($products)): ?>
-                        <?php foreach ($_SESSION['cart'] as $id => $qty): ?>
-                            <?php if (isset($products[$id])): 
-                                $product = $products[$id];
-                                $subtotal = $product['price'] * $qty;
-                                $total += $subtotal;
-                            ?>
-                            <div class="summary-row">
-                                <span><?php echo htmlspecialchars($product['name']); ?> (x<?php echo $qty; ?>)</span>
-                                <span>$<?php echo number_format($subtotal, 2); ?></span>
+                    <?php if (!empty($cartItems)): ?>
+                        <?php foreach ($cartItems as $item): ?>
+                            <div class="summary-item">
+                                <div class="cart-item">
+                                    <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="cart-item-image">
+                                    <div class="product-info">
+                                        <h3><?php echo htmlspecialchars($item['name']); ?> (x<?php echo $item['quantity']; ?>)</h3>
+                                        <p>Price: $<?php echo number_format($item['price'], 2); ?></p>
+                                    </div>
+                                </div>
+                                <span class="subtotal">$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></span>
                             </div>
-                            <?php endif; ?>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p>Your cart is empty or contains invalid products.</p>
@@ -111,10 +159,18 @@ $conn->close();
                         <span>$<?php echo number_format($total + $shipping, 2); ?></span>
                     </div>
                     <input type="hidden" name="total" value="<?php echo $total + $shipping; ?>">
-                    <button type="submit" class="place-order-btn">Place Order</button>
+                    <div class="checkout-actions">
+                        <a href="cart.php" class="back-to-cart-btn">Back to Cart</a>
+                        <button type="submit" class="place-order-btn">Place Order</button>
+                    </div>
                 </div>
             </form>
         </div>
     </main>
+    <footer>
+        <div class="container">
+            <p>&copy; Mahiru Shop. We are pleased to serve you.</p>
+        </div>
+    </footer>
 </body>
 </html>
