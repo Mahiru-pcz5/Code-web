@@ -46,5 +46,6 @@ INSERT INTO products (id, name, description, price, image, category, sold_count,
 (40, 'Ryo Yamada', 'Bocchi The Rock', 40.00, 'uploads/Ryo.jpeg', 'Figure', 0, '2025-03-27 14:05:11'),
 (41, 'Ichika Ijichi', 'Bocchi The Rock', 30.00, 'uploads/ichika.jpg', 'Figure', 0, '2025-03-27 14:05:11'),
 (42, 'Kita Ikuyo', 'Bocchi The Rock', 35.00, 'uploads/Kita.jpeg', 'Figure', 0, '2025-03-27 14:06:11'),
-(43, 'Eva-02', 'Neon Genesis Evangelion', 120.00, 'uploads/Eva-02.jpeg', 'Figure', 0, '2025-03-27 14:07:11');
-
+(43, 'Eva-02', 'Neon Genesis Evangelion', 120.00, 'uploads/Eva-02.jpeg', 'Figure', 0, '2025-03-27 14:07:11'),
+(44,'Kamen Rider OOO Putotyra','Kamen rider OOO',124.00,'uploads/Putotyra.png','Kamen Rider','2025-03-29 21:57:20'),
+(45,'Gundam Epyon','Gundam Mobile Suit',40.00,'uploads/Epyon.jpg','Gundam','2025-03-29 21:59:08');
