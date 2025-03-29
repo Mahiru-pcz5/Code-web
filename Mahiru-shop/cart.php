@@ -1,77 +1,80 @@
 <?php
 session_start();
-    
-// Kiểm tra giỏ hàng
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
+
+// Kiểm tra đăng nhập
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
 }
 
-// Xử lý thêm sản phẩm vào giỏ hàng
-if (isset($_GET['add_to_cart'])) {
-    $product_id = intval($_GET['add_to_cart']);
-    if (!isset($_SESSION['cart'][$product_id])) {
-        $_SESSION['cart'][$product_id] = 1; // Số lượng mặc định là 1
-    } else {
-        $_SESSION['cart'][$product_id] += 1; // Tăng số lượng nếu sản phẩm đã có trong giỏ hàng
-    }
-    header("Location: cart.php");
-    exit();
+// Kết nối cơ sở dữ liệu
+$host = 'localhost';
+$dbname = 'mahiru_shop';
+$dbUsername = 'root';
+$dbPassword = '';
+
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $dbUsername, $dbPassword);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 
-// Xử lý yêu cầu xóa sản phẩm
+// Lấy user_id từ session
+$userId = $_SESSION['user_id'];
+
+// Xử lý xóa sản phẩm
 if (isset($_GET['remove'])) {
-    $remove_id = intval($_GET['remove']);
-    if (isset($_SESSION['cart'][$remove_id])) {
-        unset($_SESSION['cart'][$remove_id]);
-        header("Location: cart.php");
-        exit();
-    }
+    $productId = (int)$_GET['remove'];
+    $deleteStmt = $conn->prepare("DELETE FROM cart WHERE user_id = :user_id AND product_id = :product_id");
+    $deleteStmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+    $deleteStmt->bindValue(':product_id', $productId, PDO::PARAM_INT);
+    $deleteStmt->execute();
+    header("Location: cart.php");
+    exit;
 }
 
-// Xử lý yêu cầu cập nhật số lượng
+// Xử lý cập nhật số lượng
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_cart'])) {
     foreach ($_POST['quantity'] as $id => $qty) {
-        $id = intval($id);
-        $qty = intval($qty);
+        $id = (int)$id;
+        $qty = (int)$qty;
         if ($qty > 0 && $qty <= 10) {
-            $_SESSION['cart'][$id] = $qty;
+            $updateStmt = $conn->prepare("UPDATE cart SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id");
+            $updateStmt->bindValue(':quantity', $qty, PDO::PARAM_INT);
+            $updateStmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+            $updateStmt->bindValue(':product_id', $id, PDO::PARAM_INT);
+            $updateStmt->execute();
         } else {
-            // Xóa sản phẩm nếu số lượng không hợp lệ
-            unset($_SESSION['cart'][$id]);
+            $deleteStmt = $conn->prepare("DELETE FROM cart WHERE user_id = :user_id AND product_id = :product_id");
+            $deleteStmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+            $deleteStmt->bindValue(':product_id', $id, PDO::PARAM_INT);
+            $deleteStmt->execute();
         }
     }
     header("Location: cart.php");
-    exit();
+    exit;
 }
 
-// Khởi tạo biến $total và $shipping
+// Lấy dữ liệu giỏ hàng, bao gồm cột description
+$stmt = $conn->prepare("
+    SELECT c.product_id, c.quantity, p.name, p.price, p.image, p.description 
+    FROM cart c 
+    JOIN products p ON c.product_id = p.id 
+    WHERE c.user_id = :user_id
+");
+$stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+$stmt->execute();
+$cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Tính tổng tiền
 $total = 0;
 $shipping = 5.00;
-
-// Kết nối cơ sở dữ liệu
-$servername = "localhost";
-$username = "root"; // Thay bằng username của bạn
-$password = ""; // Thay bằng password của bạn
-$dbname = "mahiru_shop"; // Thay bằng tên database của bạn
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Lấy dữ liệu sản phẩm từ cơ sở dữ liệu
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
-
-$products = [];
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $products[$row['id']] = $row;
-    }
+foreach ($cartItems as $item) {
+    $total += $item['price'] * $item['quantity'];
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +82,7 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Your Cart - Mahiru Shop</title>
     <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="stylesheet" href="./css/cart.css" />
+    <link rel="stylesheet" href="./css/cart.css?v=1.1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 <body>
@@ -89,16 +92,14 @@ if ($result->num_rows > 0) {
                 <div class="contact-info">
                     <span><i class="fas fa-phone"></i> 012345678</span>
                     <span><i class="fas fa-envelope"></i> mahiru@gmail.com</span>
-                    <span><i class="fas fa-map-marker-alt"></i>1104 Wall Street</span>
+                    <span><i class="fas fa-map-marker-alt"></i> 1104 Wall Street</span>
                 </div>
                 <div class="user-actions">
-                    <a class="login-link">
-                        <i class="fas fa-user"></i>
-                        <span class="name">Login/Sign up</span>
-                    </a>
+                    <i class="fas fa-user"></i>
+                    <span class="name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
                     <div class="login-dropdown">
-                        <a href="login.html" class="login-option">Login</a>
-                        <a href="sign_up.html" class="login-option">Sign up</a>
+                        <a href="order_history.php" class="login-option">Order History</a>
+                        <a href="index.php" class="login-option">Log out</a>
                     </div>
                 </div>
             </div>
@@ -106,25 +107,29 @@ if ($result->num_rows > 0) {
         <div class="main-header">
             <div class="container">
                 <div class="logo">
-                    <a href="index.html" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
+                    <a href="index_account.php" class="logo-link"><h1>MAHIRU<span>.</span></h1></a>
                 </div>
                 <div class="search-bar">
-                    <input type="text" placeholder="Search here" />
-                    <a href="search.php" class="search-button">Search</a>
+                    <form action="search_account.php" method="GET">
+                        <input type="text" name="name" placeholder="Search here" />
+                        <button type="submit" class="search-button">Search</button>
+                    </form>
                 </div>
-                <div class="user-menu"></div>
+                <div class="user-menu">
+                    <a href="cart.php" class="icon"><i class="fas fa-shopping-cart"></i></a>
+                </div>
             </div>
         </div>
         <nav>
             <div class="container">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="category.html">Gundam</a></li>
-                    <li><a href="category.html">Kamen Rider</a></li>
-                    <li><a href="category.html">Standee</a></li>
-                    <li><a href="category.html">Keychain</a></li>
-                    <li><a href="category.html">Plush</a></li>
-                    <li><a href="category.html">Figure</a></li>
+                    <li><a href="index_account.php">Home</a></li>
+                    <li><a href="category_acc_gundam.php">Gundam</a></li>
+                    <li><a href="category_acc_kamen_rider.php">Kamen Rider</a></li>
+                    <li><a href="category_acc_standee.php">Standee</a></li>
+                    <li><a href="category_acc_keychain.php">Keychain</a></li>
+                    <li><a href="category_acc_plush.php">Plush</a></li>
+                    <li><a href="category_acc_figure.php">Figure</a></li>
                 </ul>
             </div>
         </nav>
@@ -134,34 +139,51 @@ if ($result->num_rows > 0) {
             <div class="cart-container">
                 <h1 class="page-title">Your Shopping Cart</h1>
                 <form action="cart.php" method="post" class="cart-form">
-                    <div class="cart-items">
-                        <?php if (empty($_SESSION['cart'])): ?>
-                            <p class="empty-cart">Your cart is empty.</p>
-                        <?php else: ?>
-                            <?php foreach ($_SESSION['cart'] as $id => $qty): ?>
-                                <?php if (isset($products[$id])): 
-                                    $product = $products[$id];
-                                    $subtotal = $product['price'] * $qty;
-                                    $total += $subtotal;
-                                ?>
-                                    <div class="product-card">
-                                        <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" class="product-image">
-                                        <div class="product-info">
-                                            <h3><?php echo $product['name']; ?></h3>
-                                            <p><?php echo $product['description']; ?></p>
-                                            <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
-                                            <div class="quantity-control">
-                                                <input type="number" name="quantity[<?php echo $id; ?>]" value="<?php echo $qty; ?>" min="1" max="10">
-                                                <a href="cart.php?remove=<?php echo $id; ?>" class="remove-btn">Remove</a>
+                    <table class="cart-table" data-shipping="<?php echo $shipping; ?>">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($cartItems)): ?>
+                                <tr>
+                                    <td colspan="5" class="empty-cart">Your cart is empty.</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($cartItems as $item): ?>
+                                    <tr data-product-id="<?php echo $item['product_id']; ?>">
+                                        <td>
+                                            <div class="cart-item">
+                                                <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="cart-item-image">
+                                                <div class="product-info">
+                                                    <h3><?php echo htmlspecialchars($item['name']); ?></h3>
+                                                    <p><?php echo htmlspecialchars($item['description'] ?? 'No description available'); ?></p>
+                                                </div>
                                             </div>
-                                            <span class="subtotal">Subtotal: $<?php echo number_format($subtotal, 2); ?></span>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                    <?php if (!empty($_SESSION['cart'])): ?>
+                                        </td>
+                                        <td class="price" data-price="<?php echo $item['price']; ?>">$<?php echo number_format($item['price'], 2); ?></td>
+                                        <td>
+                                            <div class="quantity-control">
+                                                <button type="button" class="decrease-btn">-</button>
+                                                <input type="number" name="quantity[<?php echo $item['product_id']; ?>]" value="<?php echo $item['quantity']; ?>" min="1" max="10" class="quantity-input" readonly>
+                                                <button type="button" class="increase-btn">+</button>
+                                            </div>
+                                        </td>
+                                        <td class="subtotal">$<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
+                                        <td>
+                                            <a href="cart.php?remove=<?php echo $item['product_id']; ?>" class="remove-btn">Remove</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (!empty($cartItems)): ?>
                         <div class="cart-actions">
                             <button type="submit" name="update_cart" class="update-cart-btn">Update Cart</button>
                         </div>
@@ -171,7 +193,7 @@ if ($result->num_rows > 0) {
                     <h2>Order Summary</h2>
                     <div class="summary-row">
                         <span>Subtotal:</span>
-                        <span>$<?php echo number_format($total, 2); ?></span>
+                        <span id="subtotal">$<?php echo number_format($total, 2); ?></span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping:</span>
@@ -179,7 +201,7 @@ if ($result->num_rows > 0) {
                     </div>
                     <div class="summary-row total">
                         <span>Total:</span>
-                        <span>$<?php echo number_format($total + $shipping, 2); ?></span>
+                        <span id="total">$<?php echo number_format($total + $shipping, 2); ?></span>
                     </div>
                     <a href="checkout.php" class="checkout-btn">Proceed to Checkout</a>
                 </div>
@@ -188,11 +210,10 @@ if ($result->num_rows > 0) {
     </main>
     <footer>
         <div class="container">
-            <p>&copy; Mahiru Shop. We are pleased to serve you.</p>
+            <p>© Mahiru Shop. We are pleased to serve you.</p>
         </div>
     </footer>
+
+    <script src="./js/cart.js"></script>
 </body>
-</html>
-<?php
-$conn->close();
-?>  
+</html> 
