@@ -20,6 +20,39 @@ $currentUser = isset($_SESSION['user_name']) ? [
     'role'     => $_SESSION['user_role'] ?? 'user'
 ] : null;
 
+// ========== XỬ LÝ THÊM SẢN PHẨM VÀO GIỎ HÀNG ==========
+if (isset($_GET['add_to_cart']) && isset($_SESSION['user_id'])) {
+    $productId = (int)$_GET['add_to_cart'];
+    $userId = $_SESSION['user_id'];
+
+    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+    $checkStmt = $conn->prepare("SELECT * FROM cart WHERE user_id = :user_id AND product_id = :product_id");
+    $checkStmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+    $checkStmt->bindValue(':product_id', $productId, PDO::PARAM_INT);
+    $checkStmt->execute();
+    $existingItem = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingItem) {
+        // Nếu sản phẩm đã có, tăng số lượng
+        $newQuantity = $existingItem['quantity'] + 1;
+        $updateStmt = $conn->prepare("UPDATE cart SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id");
+        $updateStmt->bindValue(':quantity', $newQuantity, PDO::PARAM_INT);
+        $updateStmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $updateStmt->bindValue(':product_id', $productId, PDO::PARAM_INT);
+        $updateStmt->execute();
+    } else {
+        // Nếu sản phẩm chưa có, thêm mới
+        $insertStmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (:user_id, :product_id, 1)");
+        $insertStmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $insertStmt->bindValue(':product_id', $productId, PDO::PARAM_INT);
+        $insertStmt->execute();
+    }
+
+    $_SESSION['success_message'] = "Product added to cart successfully!";
+    header("Location: index_account.php");
+    exit;
+}
+
 // ========== LẤY DANH MỤC TỪ BẢNG products ==========
 $categoryQuery = $conn->query("SELECT DISTINCT category FROM products");
 $categories = $categoryQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -76,6 +109,7 @@ $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,6 +118,22 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Mahiru Shop</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+        .success-message.show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -141,13 +191,13 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-        <nav>
+        <nav class="category-nav">
             <div class="container">
-                <ul>
-                <li><a href="index_account.php">Home</a></li>
-            <?php foreach ($categories as $cat): ?>
-                <li><a href="index_account.php?category=<?= urlencode($cat['category']) ?>"> <?= htmlspecialchars($cat['category']) ?> </a></li>
-            <?php endforeach; ?>
+                <ul class="category-list">
+                    <li><a href="index_account.php">Home</a></li>
+                    <?php foreach ($categories as $cat): ?>
+                        <li><a href="index_account.php?category=<?= urlencode($cat['category']) ?>"> <?= htmlspecialchars($cat['category']) ?> </a></li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </nav>
@@ -155,55 +205,38 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <main>
         <div class="container">
-        <div class="filter-sidebar">
-    <form action="index_account.php" method="GET">
-        <h3>Name:</h3>
-        <div class="filter-name">
-            <input type="text" name="name" placeholder="Enter product name" class="filter-input" value="">
-        </div>
-        <h3>Category:</h3>
-        <div class="filter-category">
-            <select name="category" class="filter-select">
-                <option value="all" selected="">All Categories</option>
-                <option value="Figure">Figure</option>
-                <option value="Kamen Rider">Kamen Rider</option>
-                <option value="Plush">Plush</option>
-                <option value="Gundam">Gundam</option>
-                <option value="Standee">Standee</option>
-                <option value="Keychain">Keychain</option>
-            </select>
-        </div>
-        <h3>Price:</h3>
-        <div class="filter-price">
-    <label for="priceRange">Range:</label>
-    <div class="range-container custom-range">
-        <div class="range-label">0</div>
-        <input type="range" id="priceRange" name="price" min="0" max="300"
-            value="<?php echo isset($_GET['price']) ? htmlspecialchars($_GET['price']) : '300'; ?>" class="filter-input">
-        <div class="range-label">300</div>
-    </div>
-    <!-- Hiển thị giá trị hiện tại -->
-    <div class="price-value" style="margin-top: 5px;">
-        Current Price: $<span id="priceOutput"><?php echo isset($_GET['price']) ? htmlspecialchars($_GET['price']) : '300'; ?></span>
-    </div>
-</div>
-        <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
-    </form>
-</div>
-
-<!-- Add this JavaScript at the bottom of your page, before </body> -->
-<script>
-    const priceRange = document.getElementById('priceRange');
-    const priceOutput = document.getElementById('priceOutput');
-
-    // Gán giá trị ban đầu từ input range
-    priceOutput.textContent = priceRange.value;
-
-    // Cập nhật giá trị khi kéo thanh trượt
-    priceRange.addEventListener('input', function() {
-        priceOutput.textContent = priceRange.value;
-    });
-</script>
+            <div class="filter-sidebar">
+                <form action="index_account.php" method="GET">
+                    <h3>Name:</h3>
+                    <div class="filter-name">
+                        <input type="text" name="name" placeholder="Enter product name" class="filter-input" value="<?php echo htmlspecialchars($searchName); ?>">
+                    </div>
+                    <h3>Category:</h3>
+                    <div class="filter-category">
+                        <select name="category" class="filter-select">
+                            <option value="all" <?php echo $category === 'all' ? 'selected' : ''; ?>>All Categories</option>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?php echo htmlspecialchars($cat['category']); ?>" <?php echo $category === $cat['category'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($cat['category']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <h3>Price:</h3>
+                    <div class="filter-price">
+                        <label for="priceRange">Range:</label>
+                        <div class="range-container custom-range">
+                            <div class="range-label">0</div>
+                            <input type="range" id="priceRange" name="price" min="0" max="300" value="<?php echo htmlspecialchars($priceRange === '99999999' ? 300 : $priceRange); ?>" class="filter-input">
+                            <div class="range-label">300</div>
+                        </div>
+                        <div class="price-value" style="margin-top: 5px;">
+                            Current Price: $<span id="priceOutput"><?php echo htmlspecialchars($priceRange === '99999999' ? 300 : $priceRange); ?></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="filter-button" style="margin-top: 10px">Search</button>
+                </form>
+            </div>
             <section class="product-grid">
                 <div class="product-categories">
                     <?php if (count($products) > 0): ?>
@@ -215,9 +248,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" />
                                         </a>
                                         <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                                        <p><?php echo htmlspecialchars($product['description']); ?></p>
+                                        <p><?php echo htmlspecialchars($product['description'] ?? 'No description available'); ?></p>
                                         <span class="price">$<?php echo htmlspecialchars($product['price']); ?></span>
-                                        <a href="product_details.php?id=<?php echo $product['id']; ?>" class="btn">Add to Cart</a>
+                                        <a href="index_account.php?add_to_cart=<?php echo $product['id']; ?>" class="btn">Add to Cart</a>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -247,6 +280,27 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </footer>
 
-    <script src="./js/popup.js"></script>
+    <?php if (isset($_SESSION['success_message'])): ?>
+        <div class="success-message" id="successPopup"><?php echo htmlspecialchars($_SESSION['success_message']); ?></div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var popup = document.getElementById('successPopup');
+                popup.classList.add('show');
+                setTimeout(function() {
+                    popup.classList.remove('show');
+                    <?php unset($_SESSION['success_message']); ?>
+                }, 3000);
+            });
+        </script>
+    <?php endif; ?>
+
+    <script>
+        const priceRange = document.getElementById('priceRange');
+        const priceOutput = document.getElementById('priceOutput');
+        priceOutput.textContent = priceRange.value;
+        priceRange.addEventListener('input', function() {
+            priceOutput.textContent = priceRange.value;
+        });
+    </script>
 </body>
 </html>
